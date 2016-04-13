@@ -11,6 +11,7 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 # Neovim
 ```sh
 brew install neovim/neovim/neovim
+pip install neovim
 ```
 
 # Atom
