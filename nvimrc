@@ -6,45 +6,48 @@ let mapleader=" "
 "
 """""""""""""""""""
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'bling/vim-airline'
-Plugin 'jeffkreeftmeijer/vim-numbertoggle'
-Plugin 'chriskempson/base16-vim'
-Plugin 'mhartington/oceanic-next'
-Plugin 'tpope/vim-obsession'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'jlanzarotta/bufexplorer'
-Plugin 'easymotion/vim-easymotion'
-"Plugin 'benekastah/neomake'
+call plug#begin()
+Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'bling/vim-airline'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'chriskempson/base16-vim'
+Plug 'brycehill/oceanic-next'
+Plug 'romainl/flattened'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-unimpaired'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'easymotion/vim-easymotion'
+Plug 'benekastah/neomake'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-commentary'
 
 " Syntax"
+Plug 'othree/yajs.vim'
+Plug 'mattn/emmet-vim'
+Plug 'othree/html5.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'wavded/vim-stylus'
+Plug 'dag/vim2hs'
+Plug 'evanmiller/nginx-vim-syntax'
+Plug 'digitaltoad/vim-jade'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'ap/vim-css-color'
 "Plugin 'vim-scripts/ctags.vim'
-Plugin 'othree/yajs.vim'
-"Plugin 'scrooloose/syntastic'
-Plugin 'Raimondi/delimitMate'
-Plugin 'othree/html5.vim'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'wavded/vim-stylus'
-Plugin 'dag/vim2hs'
-Plugin 'evanmiller/nginx-vim-syntax'
-Plugin 'digitaltoad/vim-jade'
-Plugin 'tpope/vim-commentary'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'ap/vim-css-color'
 "Plugin 'Valloric/YouCompleteMe'
 "Plugin 'Shougo/deoplete.nvim'
 
-" Git it
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-
 " Faster searching
-Plugin 'rking/ag.vim'
-call vundle#end()
+Plug 'rking/ag.vim'
+
+" Git it
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+call plug#end()
+
 filetype plugin indent on
 
 """""""""""""""""""""""""""
@@ -52,19 +55,18 @@ filetype plugin indent on
 " Settings
 "
 """"""""""""""""""""""""""""
-"highlight SyntasticErrorSign guifg=white guibg=red
 set guifont=Source\ Code\ Pro\ for\ Powerline:h12
 set clipboard=unnamed
 set gdefault
 set cursorline
 set colorcolumn=80
 set ruler
+set nowrap
 set tabstop=4
 set expandtab
 set shiftwidth=4
 set softtabstop=4
 set nolist
-set autochdir
 set ignorecase
 set smartcase
 set noerrorbells
@@ -73,6 +75,7 @@ set shortmess=atIiA
 "set showcmd
 set scrolloff=10
 set suffixesadd+=.js " For gf to find require/imports
+"set mouse=niv
 
 if exists("&relativenumber")
 	set relativenumber
@@ -92,12 +95,6 @@ highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 " Show trailing whitespace:
 :match ExtraWhitespace /\s\+$/
 
-" Use ag for fast ctrlps
-if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    let g:ctrlp_use_caching = 0
-endif
-
 " Ag
 let g:ag_working_path_mode="r"
 
@@ -111,23 +108,32 @@ let g:airline#extensions#tabline#right_alt_sep = ''
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_powerline_fonts = 1
-"let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_theme = 'oceanicnext'
 
-" Buffergator
-let g:buffergator_viewport_split_policy = 'R'
+" BufExplorer
+let g:bufExplorerShowRelativePath=1
+
+" Emmet
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 " CtrlP
 nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>u :CtrlPBuffer<CR>
 nnoremap <leader>m :CtrlPMRU<CR>
-let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\'
-if has("gui_macvim")
-    map <D-t> :CtrlP<CR>
-   imap <D-t> <ESC>:CtrlP<CR>
+
+" Use ag for fast ctrlps
+if executable('ag')
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_use_caching = 0
 endif
+
+" FZF
+" nnoremap <leader>p :FZF<CR>
+" let g:ctrlp_working_path_mode = 'r'
+" let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\'
 
 " Delimitmate
 let delimitMate_expand_cr = 1
@@ -140,23 +146,25 @@ let NERDTreeChDirMode=2
 let NERDTreeShowBookmarks=1
 
 " Neomake
+let g:neomake_open_list=2 " Open List or Error
 autocmd! BufWritePost * Neomake
 let g:neomake_javascript_jshint_maker = {
     \ 'args': ['--verbose'],
     \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
     \ }
 let g:neomake_javascript_enabled_makers = ['jshint']
-" Syntastic
-"let g:syntastic_javascript_checkers = ['eslint'] ", 'jshint']
-"let g:syntastic_html_checkers = ['jshint']
-"let g:syntastic_html_tidy_exec = 'tidy5'
-"let g:syntastic_disabled_filetypes=['html']
-"let g:syntastic_enable_signs=1
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_check_on_open = 1
+
+let g:neomake_warning_sign = {
+  \ 'text': '•',
+  \ 'texthl': 'WarningMsg',
+  \ }
+
+let g:neomake_error_sign = {
+  \ 'text': '•',
+  \ 'texthl': 'ErrorMsg',
+  \ }
+
 set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set hidden
 
@@ -197,8 +205,6 @@ nmap <leader>gd :Gdiff<CR>
 
 " Insert Mode
 inoremap jj <ESC> <CR>
-" auto complete file names
-"inoremap <Tab> <C-X><C-F>
 
 " Normal Mode
 nmap <S-Enter> O<Esc>
@@ -209,12 +215,7 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>, :e ~/.nvimrc <CR>
 
 syntax enable
-"let g:solarized_bold = 0
-"let g:solarized_underline = 0
-"let g:solarized_italic = 0
-"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-"colorscheme solarized
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 colorscheme OceanicNext
-" base16-flat
 set background=dark
 
