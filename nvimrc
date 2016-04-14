@@ -64,8 +64,8 @@ set ruler
 set nowrap
 set tabstop=4
 set expandtab
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 set nolist
 set ignorecase
 set smartcase
@@ -168,8 +168,13 @@ set statusline+=%#warningmsg#
 set statusline+=%*
 set hidden
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1
+""""""""""""""""""""""
+"
+" Commands
+"
+""""""""""""""""""""""
+" Save on Focus out
+au FocusLost * :wa
 
 """"""""""""""""""""""
 "
@@ -205,6 +210,7 @@ nmap <leader>gd :Gdiff<CR>
 
 " Insert Mode
 inoremap jj <ESC> <CR>
+inoremap <F1> <ESC>
 
 " Normal Mode
 nmap <S-Enter> O<Esc>
@@ -212,7 +218,21 @@ nmap <CR> o<Esc>
 nnoremap <Leader>a :Ag!<space>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
-nnoremap <leader>, :e ~/.nvimrc <CR>
+nnoremap <leader>, <C-w><C-v><C-l>:e ~/.nvimrc <CR>
+nnoremap <tab> %
+nnoremap <F1> <ESC>
+nnoremap ; :
+"New Vertical Split
+nnoremap <Leader>v <C-w>v<C-w>l
+" Move around splits quicker
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Visual Mode
+vnoremap <tab> %
+vnoremap <F1> <ESC>
 
 syntax enable
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
