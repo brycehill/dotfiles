@@ -7,9 +7,8 @@ let mapleader=" "
 """""""""""""""""""
 filetype off
 call plug#begin()
-Plug 'ctrlpvim/ctrlp.vim'
-"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-airline'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
@@ -99,17 +98,17 @@ highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 let g:ag_working_path_mode="r"
 
 " Airline
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#left_sep = ''
-"let g:airline#extensions#tabline#right_sep = ''
-"let g:airline#extensions#tabline#left_alt_sep = ''
-"let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
+let g:airline_section_c = ''
+let g:airline_section_y = ''
 let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_theme = 'oceanicnext'
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+"let g:airline_theme = 'oceanicnext'
 
 " BufExplorer
 let g:bufExplorerShowRelativePath=1
@@ -119,21 +118,8 @@ let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
-" CtrlP
-nnoremap <leader>p :CtrlP<CR>
-nnoremap <leader>u :CtrlPBuffer<CR>
-nnoremap <leader>m :CtrlPMRU<CR>
-
-" Use ag for fast ctrlps
-if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    let g:ctrlp_use_caching = 0
-endif
-
 " FZF
-" nnoremap <leader>p :FZF<CR>
-" let g:ctrlp_working_path_mode = 'r'
-" let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\'
+nnoremap <leader>p :FZF<CR>
 
 " Delimitmate
 let delimitMate_expand_cr = 1
@@ -218,7 +204,7 @@ nmap <CR> o<Esc>
 nnoremap <Leader>a :Ag!<space>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
-nnoremap <leader>, <C-w><C-v><C-l>:e ~/.nvimrc <CR>
+nnoremap <leader>, <C-w><C-v><C-l>:e ~/.nvimrc<CR>
 nnoremap <tab> %
 nnoremap <F1> <ESC>
 nnoremap ; :
@@ -229,10 +215,14 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+nnoremap <leader>gd :term git diff %<cr>
 
 " Visual Mode
 vnoremap <tab> %
 vnoremap <F1> <ESC>
+
+" Terminal Mode
+:tnoremap jj <C-\><C-n>
 
 syntax enable
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
