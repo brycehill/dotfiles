@@ -11,6 +11,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'chriskempson/base16-vim'
 Plug 'brycehill/oceanic-next'
@@ -22,7 +23,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'benekastah/neomake'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
-
+Plug 'JamshedVesuna/vim-markdown-preview'
 " Syntax"
 Plug 'othree/yajs.vim'
 Plug 'mattn/emmet-vim'
@@ -31,6 +32,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'wavded/vim-stylus'
 Plug 'dag/vim2hs'
+Plug 'raichoo/purescript-vim'
 Plug 'evanmiller/nginx-vim-syntax'
 Plug 'digitaltoad/vim-jade'
 Plug 'editorconfig/editorconfig-vim'
@@ -61,6 +63,7 @@ set cursorline
 set colorcolumn=80
 set ruler
 set nowrap
+set synmaxcol=200
 set tabstop=4
 set expandtab
 set shiftwidth=2
@@ -102,13 +105,13 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#right_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
+"let g:airline#extensions#tabline#left_alt_sep = ''
+"let g:airline#extensions#tabline#right_alt_sep = ''
 let g:airline_section_c = ''
 let g:airline_section_y = ''
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-"let g:airline_theme = 'oceanicnext'
+let g:airline_theme = 'base16_ocean'
 
 " BufExplorer
 let g:bufExplorerShowRelativePath=1
@@ -192,7 +195,7 @@ nmap <leader>gs :Gstatus<CR>
 nmap <leader>gd :Gdiff<CR>
 
 " Command Mode
-:cnoremap <C-a>  <Home>
+cnoremap <C-a>  <Home>
 
 " Insert Mode
 inoremap jj <ESC> <CR>
@@ -215,6 +218,8 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+nnoremap <leader>d :bdelete<CR>
+nnoremap <leader>d! :bdelete!<CR>
 nnoremap <leader>gd :term git diff %<cr>
 
 " Visual Mode
