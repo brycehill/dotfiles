@@ -6,14 +6,18 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 # Homebrew
 ```sh
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew install ccat
+brew install the_silver_searcher
 ```
 
 # Neovim
 ```sh
 brew install neovim/neovim/neovim
 pip install neovim
+#  Install vim-plug
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
-
 # Atom
 ```sh
 open https://github.com/atom/atom/releases/tag/v1.5.4

@@ -194,6 +194,10 @@ nmap <leader>gb :Gblame<CR>
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gd :Gdiff<CR>
 
+" Move to end of first line on git commit messages
+:filetype on
+autocmd FileType gitcommit call cursor(1, 99)  
+
 " Command Mode
 cnoremap <C-a>  <Home>
 
