@@ -1,5 +1,8 @@
 let mapleader=" "
 
+
+
+
 """""""""""""""""""
 "
 " Plugins!
@@ -12,10 +15,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'chriskempson/base16-vim'
-Plug 'brycehill/oceanic-next'
-Plug 'romainl/flattened'
+" Plug 'brycehill/oceanic-next'
+Plug 'lifepillar/vim-solarized8'
+Plug 'mhartington/oceanic-next'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
 Plug 'jlanzarotta/bufexplorer'
@@ -24,20 +27,17 @@ Plug 'benekastah/neomake'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
 Plug 'JamshedVesuna/vim-markdown-preview'
+
 " Syntax"
 Plug 'othree/yajs.vim'
-Plug 'mattn/emmet-vim'
 Plug 'othree/html5.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'wavded/vim-stylus'
 Plug 'dag/vim2hs'
 Plug 'raichoo/purescript-vim'
-Plug 'evanmiller/nginx-vim-syntax'
 Plug 'digitaltoad/vim-jade'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ap/vim-css-color'
-"Plugin 'vim-scripts/ctags.vim'
 "Plugin 'Valloric/YouCompleteMe'
 "Plugin 'Shougo/deoplete.nvim'
 
@@ -195,7 +195,6 @@ nmap <leader>gs :Gstatus<CR>
 nmap <leader>gd :Gdiff<CR>
 
 " Move to end of first line on git commit messages
-:filetype on
 autocmd FileType gitcommit call cursor(1, 99)  
 
 " Command Mode
@@ -226,6 +225,10 @@ nnoremap <leader>d :bdelete<CR>
 nnoremap <leader>d! :bdelete!<CR>
 nnoremap <leader>gd :term git diff %<cr>
 
+" Smooth Scrolling
+:map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
+:map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
+
 " Visual Mode
 vnoremap <tab> %
 vnoremap <F1> <ESC>
@@ -234,7 +237,6 @@ vnoremap <F1> <ESC>
 :tnoremap jj <C-\><C-n>
 
 syntax enable
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 colorscheme OceanicNext
 set background=dark
 

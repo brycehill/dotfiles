@@ -3,13 +3,10 @@ export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="purity"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+autoload -U promptinit && promptinit
+prompt purity
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -32,7 +29,7 @@ plugins=(git colored-man-pages zsh-syntax-highlighting)
 # User configuration
 #
 ####################
-export PATH="~/.cabal/bin:/Applications/ghc-7.8.3.app/Contents/bin:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mongodb/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mysql/bin:/usr/local/mysql/bin:~/Library/Haskell/bin:/usr/local/installs/maven/current/bin:~/bin:~/.rbenv"
+export PATH="~/.cabal/bin:/Applications/ghc-7.8.3.app/Contents/bin:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mongodb/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mysql/bin:/usr/local/mysql/bin:~/Library/Haskell/bin:/usr/local/installs/maven/current/bin:~/bin:~/.rbenv:~/.local/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 export FZF_DEFAULT_COMMAND='ag -U -g ""'
 source $ZSH/oh-my-zsh.sh
@@ -54,10 +51,19 @@ if [[ -n $SSH_CONNECTION ]]; then
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias neovim="nvim ~/.nvimrc"
+alias vim="/usr/local/bin/vim" # Overwrite vim without renaming /usr/bin/vim
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 unsetopt correct_all
 # lynx!
 alias lynx='/Applications/Lynxlet.app/Contents/Resources/lynx/bin/lynx'
+
+# fbr - checkout git branch
+fbr() {
+  local branches branch
+  branches=$(git branch -vv) &&
+  branch=$(echo "$branches" | fzf +m) &&
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
 
 export NVM_DIR="~/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -66,3 +72,7 @@ export NVM_DIR="~/.nvm"
 
 eval "$(rbenv init -)"
 
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+export PATH="$HOME/.elmenv/bin:$PATH"
+eval "$(elmenv init -)"
