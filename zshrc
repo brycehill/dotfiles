@@ -12,7 +12,7 @@ prompt purity
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
@@ -29,9 +29,10 @@ plugins=(git colored-man-pages zsh-syntax-highlighting)
 # User configuration
 #
 ####################
-export PATH="~/.cabal/bin:/Applications/ghc-7.8.3.app/Contents/bin:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mongodb/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mysql/bin:/usr/local/mysql/bin:~/Library/Haskell/bin:/usr/local/installs/maven/current/bin:~/bin:~/.rbenv:~/.local/bin"
+export PATH="~/.cabal/bin:/Applications/ghc-7.8.3.app/Contents/bin:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mysql/bin:/usr/local/mysql/bin:~/Library/Haskell/bin:~/.rbenv:~/.local/bin:$(yarn global bin)"
 # export MANPATH="/usr/local/man:$MANPATH"
-export FZF_DEFAULT_COMMAND='ag -U -g ""'
+export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
@@ -56,6 +57,10 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 unsetopt correct_all
 # lynx!
 alias lynx='/Applications/Lynxlet.app/Contents/Resources/lynx/bin/lynx'
+# For CV Project
+alias yd="yarn dev:inline"
+
+alias gbc='git branch | grep \* | cut -f2 -d ' ' | pbcopy'
 
 # fbr - checkout git branch
 fbr() {
@@ -65,8 +70,15 @@ fbr() {
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 
-export NVM_DIR="~/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+# fs [FUZZY PATTERN] - Select selected tmux session
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+fs() {
+  local session
+  session=$(tmux list-sessions -F "#{session_name}" | \
+    fzf --query="$1" --select-1 --exit-0) &&
+  tmux switch-client -t "$session"
+}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -76,3 +88,5 @@ eval "$(rbenv init -)"
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 export PATH="$HOME/.elmenv/bin:$PATH"
 eval "$(elmenv init -)"
+
+export PATH="$HOME/.yarn/bin:$PATH"
