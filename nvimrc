@@ -1,8 +1,4 @@
 let mapleader=" "
-
-
-
-
 """""""""""""""""""
 "
 " Plugins!
@@ -57,8 +53,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 " Dark Powered neo-completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Galooshi/vim-import-js', { 'do': 'npm install -g import-js' }
-Plug 'billyvg/deoplete-import-js'
 
 " Git it
 Plug 'tpope/vim-fugitive'
@@ -131,7 +125,6 @@ let g:airline#extensions#hunks#enabled = 0
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete_import_js#bin = 'importjs'
 inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<Ctrl-j>"
 inoremap <expr><C-k> pumvisible() ? "\<Up>" : "\<Ctrl-k>"
 
@@ -147,8 +140,8 @@ let g:used_javascript_libs = 'underscore,angularjs,react,ramda'
 
 " Neoformat configuration
 autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --no-semi
-autocmd FileType scss setlocal formatprg=prettier\ --stdin\ --single-quote\ --no-semi
 let g:neoformat_try_formatprg = 1
+let g:neoformat_enabled_scss = ['prettier']
 " let g:neoformat_only_msg_on_error = 1
 " autocmd InsertLeave *.js Neoformat
 " Prettier
