@@ -15,6 +15,7 @@ brew install the_silver_searcher
 brew install neovim/neovim/neovim
 brew install python3
 pip3 install neovim
+brew install grip # for markdown preview
 #  Install vim-plug
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -28,9 +29,7 @@ Install tpm for tmux plugins
 ```sh
 # Karabiner
 https://pqrs.org/osx/karabiner/
-https://pqrs.org/osx/karabiner/seil.html.en
 ```
-
 
 # Atom
 ```sh

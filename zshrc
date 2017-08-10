@@ -3,7 +3,7 @@ export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
-ZSH_THEME="purity"
+ZSH_THEME="ys"
 
 autoload -U promptinit && promptinit
 prompt purity
@@ -86,7 +86,5 @@ eval "$(rbenv init -)"
 
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
-export PATH="$HOME/.elmenv/bin:$PATH"
-eval "$(elmenv init -)"
 
 export PATH="$HOME/.yarn/bin:$PATH"

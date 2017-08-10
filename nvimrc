@@ -138,6 +138,9 @@ let delimitMate_expand_space = 1
 " JS Library Syntax Support
 let g:used_javascript_libs = 'underscore,angularjs,react,ramda'
 
+" Markdown
+let vim_markdown_preview_github=1
+
 " Neoformat configuration
 autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --no-semi
 let g:neoformat_try_formatprg = 1
