@@ -3,18 +3,15 @@ export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
-ZSH_THEME="ys"
+ZSH_THEME="purity"
 
 autoload -U promptinit && promptinit
 prompt purity
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
+# Disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
 
-# Uncomment the following line to enable command auto-correction.
+# Enable command auto-correction.
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -22,14 +19,14 @@ ENABLE_CORRECTION="true"
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git colored-man-pages zsh-syntax-highlighting)
+plugins=(git colored-man-pages zsh-syntax-highlighting yarn osx brew)
 
 ####################
 #
 # User configuration
 #
 ####################
-export PATH="~/.cabal/bin:/Applications/ghc-7.8.3.app/Contents/bin:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mysql/bin:/usr/local/mysql/bin:~/Library/Haskell/bin:~/.rbenv:~/.local/bin:$(yarn global bin)"
+export PATH="~/.cabal/bin:/Applications/ghc-7.8.3.app/Contents/bin:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mysql/bin:/usr/local/mysql/bin:~/Library/Haskell/bin:~/.rbenv:~/.local/bin:$(yarn global bin):~/.config/yarn/global/node_modules:~/.local/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -48,10 +45,15 @@ if [[ -n $SSH_CONNECTION ]]; then
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
+###########
+#
+# Aliases
+#
+###########
 # For a full list of active aliases, run `alias`.
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
-alias neovim="nvim ~/.nvimrc"
+alias v="nvim"
 alias vim="/usr/local/bin/vim" # Overwrite vim without renaming /usr/bin/vim
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 unsetopt correct_all
@@ -60,7 +62,9 @@ alias lynx='/Applications/Lynxlet.app/Contents/Resources/lynx/bin/lynx'
 # For CV Project
 alias yd="yarn dev:inline"
 
+
 alias gbc='git branch | grep \* | cut -f2 -d ' ' | pbcopy'
+alias ctags="`brew --prefix`/bin/ctags"
 
 # fbr - checkout git branch
 fbr() {
@@ -84,7 +88,8 @@ fs() {
 
 eval "$(rbenv init -)"
 
-
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
-
 export PATH="$HOME/.yarn/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

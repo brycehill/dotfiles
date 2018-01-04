@@ -13,41 +13,49 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" Plug 'edkolev/tmuxline.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
-Plug 'easymotion/vim-easymotion'
 Plug 'w0rp/ale'
 Plug 'Raimondi/delimitMate'
-" Plug 'tpope/vim-commentary'
-Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-commentary'
+"Plug 'tomtom/tcomment_vim'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'ntpeters/vim-better-whitespace'
+" Auto regenerate ctags
+Plug 'craigemery/vim-autotag'
 
 " Colors
 Plug 'chriskempson/base16-vim'
 Plug 'mhartington/oceanic-next'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'KeitaNakamura/neodark.vim'
+Plug 'rakr/vim-one'
 Plug 'trevordmiller/nova-vim'
-Plug 'flazz/vim-colorschemes'
+" Plug 'flazz/vim-colorschemes'
+Plug 'joshdick/onedark.vim'
 
 " Syntax
 Plug 'moll/vim-node'
+" Nova
+" Plug 'pangloss/vim-javascript'
 Plug 'sheerun/vim-polyglot'
-" Plug 'othree/javascript-libraries-syntax.vim'
+" OceanicNext
+" Plug 'othree/yajs.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ap/vim-css-color'
-" Used for Prettier formatting
+" Highlight SCSS color variables
+" Plug 'gorodinskiy/vim-coloresque'
+" Plug 'shmargum/vim-sass-colors'
 Plug 'sbdchd/neoformat'
-" Plug 'mitermayer/vim-prettier', {
-  " \ 'do': 'yarn install',
-  " \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
 
 " Surround Shortcuts
 Plug 'tpope/vim-surround'
+Plug 'mattn/emmet-vim'
 
 " Terminal
-Plug 'kassio/neoterm'
 Plug 'christoomey/vim-tmux-navigator'
 " Make focus events work in tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -72,13 +80,13 @@ filetype plugin indent on
 "
 """"""""""""""""""""""""""""
 set guifont=Hasklug\ Nerd\ Font:h14
-set clipboard=unnamed
+" set clipboard=unnamed
 set gdefault
 set cursorline
-" set colorcolumn=80
 set ruler
 set nowrap
 set autoread
+" set autochdir
 set synmaxcol=200
 set tabstop=4
 set expandtab
@@ -96,14 +104,10 @@ set scrolloff=10
 " For gf to find require/imports
 set suffixesadd+=.js
 " So gf finds node_modules
-" set path+=$PWD/node_modules
+set path+=$PWD/node_modules
+" Strictly for ClearVoice app webpack alias
+set path+=$PWD/app/frontend
 set mouse=niv
-
-" Relative Numbers
-if exists("&relativenumber")
-  autocmd InsertEnter * :set number
-  autocmd InsertLeave * :set relativenumber
-endif
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -112,15 +116,14 @@ let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#right_sep = ''
 " let g:airline#extensions#tabline#left_alt_sep = ''
 " let g:airline#extensions#tabline#right_alt_sep = ''
-" let g:airline_section_c = ''
-let g:airline_section_y = ''
-" let g:airline_section_z = airline#section#create_right(['percentage'])
 let g:airline#extensions#tabline#fnamemod = ':t'
-" let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#branch#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
-" Show buffer number in tab - rarely use
-" let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline_section_y = ''
+" let l:airline_tabfill ctermfg="#1E272C"
+" call airline#highlighter#exec('airline_tabfill', "#1E272C")
+" let g:airline_section_z = ''
+" let g:airline#extensions#tmuxline#enabled = 1
+let g:airline_extensions = ['ale', 'branch', 'quickfix', 'tabline']
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -130,77 +133,63 @@ inoremap <expr><C-k> pumvisible() ? "\<Up>" : "\<Ctrl-k>"
 
 " FZF
 nnoremap <leader>p :FZF<CR>
+nnoremap <leader>t :Tags<CR>
+nnoremap <leader>g :BTags<CR>
+
 
 " Delimitmate
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 
 " JS Library Syntax Support
-let g:used_javascript_libs = 'underscore,angularjs,react,ramda'
+let g:used_javascript_libs = 'jquery,underscore,angularjs,react,ramda'
 
 " Markdown
 let vim_markdown_preview_github=1
 
-" Neoformat configuration
-autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --single-quote\ --no-semi
-let g:neoformat_try_formatprg = 1
-let g:neoformat_enabled_scss = ['prettier']
-" let g:neoformat_only_msg_on_error = 1
-" autocmd InsertLeave *.js Neoformat
-" Prettier
-nmap <leader>f :Neoformat<CR>
-" let g:prettier#autoformat = 0
-" autocmd BufWritePre *.js,*.css,*.scss,*.less Prettier
-" nmap <leader>f :PrettierAsync<cr>
-" " max line lengh that prettier will wrap on
-" g:prettier#config#print_width = 80
-" " number of spaces per indentation level
-" g:prettier#config#tab_width = 2
-" " use tabs over spaces
-" g:prettier#config#use_tabs = 'false'
-" " print semicolons
-" g:prettier#config#semi = 'false'
-" " single quotes over double quotes
-" g:prettier#config#single_quote = 'true'
-" " print spaces between brackets
-" g:prettier#config#bracket_spacing = 'false'
-" " put > on the last line instead of new line
-" g:prettier#config#jsx_bracket_same_line = 'false' 
-" " none|es5|all
-" g:prettier#config#trailing_comma = 'none'
-" flow|babylon|typescript|postcss
-" g:prettier#config#parser = 'flow'
-
-" NeoTerm
-let g:neoterm_position="vertical"
-" Open a terminal and run tests
-nmap <leader>yt :T yarn test -- --watch <CR>
-
 " NERDTree
 let NERDTreeChDirMode=2
 let NERDTreeShowBookmarks=1
+let NERDTreeShowHidden=1
 
 :set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
 " Write all buffers before navigating from Vim to tmux pane
 let g:tmux_navigator_save_on_switch = 2
 
+" Enable Ale fixers (for prettier formatting)
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['scss'] = ['prettier']
+let g:ale_fix_on_save = 1
+
+let g:ale_javascript_prettier_options = '--single-quote --no-semi'
+nmap <leader>f :ALEFix<CR>
+
 let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'html': []
-\}
+      \   'javascript': ['eslint'],
+      \   'html': ['htmlhint'],
+      \   'liquid': ['htmlhint']
+      \}
 let g:ale_sign_column_always = 1
+let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0
 let g:ale_lint_delay=300
 let g:airline#extensions#ale#enabled = 1
-let g:ale_set_highlights=0
+let g:ale_html_htmlhint_use_global = "1"
+let g:ale_set_highlights = 0
 
-" go to current error/warning
-nmap :ll :ll<CR>
-" next error/warning
-nmap :ln :lnext<CR>
-" previous error/warning
-nmap :lp :lprev<CR>
+let g:jsx_ext_required = 0
+
+" Emmet
+" let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+      \  'javascript.jsx' : {
+      \      'extends' : 'jsx',
+      \  },
+      \}
+
 set statusline+=%#warningmsg#
 set statusline+=%*
 set hidden
@@ -208,32 +197,10 @@ set hidden
 " Enable highlighting for JSDoc
 let g:javascript_plugin_jsdoc = 1
 
-syntax enable
-colorscheme nova
-
-" Customize whitespace to match Nova colorscheme
-highlight ExtraWhitespace guibg=#D18EC2
-
-" NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-  exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('md', 'blue', 'none', '#83AFE5', 'none')
-call NERDTreeHighlightFile('config', 'yellow', 'none', '#DADA93', 'none')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', '#DADA93', 'none')
-call NERDTreeHighlightFile('json', 'green', 'none', '#A8CE93', 'none')
-call NERDTreeHighlightFile('yml', 'green', 'none', '#A8CE93', 'none')
-call NERDTreeHighlightFile('html', 'green', 'none', '#A8CE93', 'none')
-call NERDTreeHighlightFile('css', 'Magenta', 'none', '#D18EC2', 'none')
-call NERDTreeHighlightFile('scss', 'Magenta', 'none', '#D18EC2', 'none')
-call NERDTreeHighlightFile('js', 'yellow', 'none', '#DADA93', 'none')
-call NERDTreeHighlightFile('ts', 'Blue', 'none', '#6699cc', 'none')
-call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', 'none')
-call NERDTreeHighlightFile('gitconfig', 'black', 'none', '#1E272C', 'none')
-call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#6A7D89', 'none')
-
+" Polyglot
+" Polyglot broke the JS syntax stuff :(
+" let g:polyglot_disabled = ['js']
+let g:javascript_plugin_flow = 1
 
 """"""""""""""""""""""
 "
@@ -253,12 +220,6 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 
 " Comments
 map <Leader>c gcc<ESC>
-" function! CommentToggle()
-"     execute ':silent! s/\([^ ]\)/\/\/ \1/'
-"     execute ':silent! s/^\( *\)\/\/ \/\/ /\1/'
-" endfunction
-" nnoremap <Leader>/ :call CommentToggle()<CR>
-" vnoremap <Leader>/ :call CommentToggle()<CR>
 
 "Emojis
 set completefunc=emoji#complete
@@ -309,17 +270,44 @@ nnoremap <leader>gd :term git diff %<cr>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" Terminal Mode
-:tnoremap <Esc> <C-\><C-n>
-" Alt Navigation - Maybe move to Ctrl?
-:tnoremap <A-h> <C-\><C-n><C-w>h
-:tnoremap <A-j> <C-\><C-n><C-w>j
-:tnoremap <A-k> <C-\><C-n><C-w>k
-:tnoremap <A-l> <C-\><C-n><C-w>l
-:nnoremap <A-h> <C-w>h
-:nnoremap <A-j> <C-w>j
-:nnoremap <A-k> <C-w>k
-:nnoremap <A-l> <C-w>l
+""""""""""""""""""""""""""""
+"
+" Colors
+"
+""""""""""""""""""""""""""""
+syntax enable
+set termguicolors
+" let g:onedark_terminal_italics=1
+" colorscheme onedark
+" let g:airline_theme='onedark'
+" let g:one_allow_italics = 1
+" colorscheme one
+" let g:airline_theme='one'
+" set background=dark
+" colorscheme nova
+" colorscheme OceanicNext
+" let g:airline_theme='oceanicnext'
+let g:neodark#use_custom_terminal_theme = 1
+colorscheme neodark
+let g:airline_theme='neodark'
 
+" Customize whitespace to match Nova colorscheme
+highlight ExtraWhitespace guibg=#D18EC2
 
+" NERDTrees File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+  exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
 
+call NERDTreeHighlightFile('md', 'blue', 'none', '#83AFE5', 'none')
+call NERDTreeHighlightFile('config', 'yellow', 'none', '#DADA93', 'none')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', '#DADA93', 'none')
+call NERDTreeHighlightFile('json', 'green', 'none', '#A8CE93', 'none')
+call NERDTreeHighlightFile('yml', 'green', 'none', '#A8CE93', 'none')
+call NERDTreeHighlightFile('html', 'green', 'none', '#A8CE93', 'none')
+call NERDTreeHighlightFile('css', 'Magenta', 'none', '#D18EC2', 'none')
+call NERDTreeHighlightFile('scss', 'Magenta', 'none', '#D18EC2', 'none')
+call NERDTreeHighlightFile('js', 'yellow', 'none', '#DADA93', 'none')
+call NERDTreeHighlightFile('ts', 'Blue', 'none', '#6699cc', 'none')
+call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', 'none')
