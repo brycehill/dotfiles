@@ -26,9 +26,10 @@ plugins=(git colored-man-pages zsh-syntax-highlighting yarn osx brew)
 # User configuration
 #
 ####################
-export PATH="~/.cabal/bin:/Applications/ghc-7.8.3.app/Contents/bin:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mysql/bin:/usr/local/mysql/bin:~/Library/Haskell/bin:~/.rbenv:~/.local/bin:$(yarn global bin):~/.config/yarn/global/node_modules:~/.local/bin"
+export PATH="$HOME/.cabal/bin:$HOME/.local/bin:/Applications/ghc-7.8.3.app/Contents/bin:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mysql/bin:/usr/local/mysql/bin:~/Library/Haskell/bin:~/.rbenv:~/.local/bin:$(yarn global bin):~/.config/yarn/global/node_modules:~/.local/bin"
+
 # export MANPATH="/usr/local/man:$MANPATH"
-export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_DEFAULT_COMMAND='ag --hidden  --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 source $ZSH/oh-my-zsh.sh
 

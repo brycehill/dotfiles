@@ -5,17 +5,17 @@ let mapleader=" "
 "
 " Plugins
 "
-""""""""""""""""""
+"" """"""""""""""""
 filetype off
 call plug#begin()
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " " UI
 " Plug 'scrooloose/nerdtree'
-" Plug 'bling/vim-airline'
+Plug 'bling/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
-" Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
 " Plug 'tpope/vim-obsession'
 " Plug 'tpope/vim-unimpaired'
 " Plug 'easymotion/vim-easymotion'
@@ -25,19 +25,19 @@ Plug 'tpope/vim-commentary'
 " Plug 'JamshedVesuna/vim-markdown-preview'
 
 " " Colors
-" Plug 'chriskempson/base16-vim'
-" Plug 'mhartington/oceanic-next'
+Plug 'chriskempson/base16-vim'
+Plug 'mhartington/oceanic-next'
 " Plug 'altercation/vim-colors-solarized'
-Plug 'trevordmiller/nova-vim'
 " Plug 'flazz/vim-colorschemes'
 " Plug 'ntpeters/vim-better-whitespace'
 
 " " Syntax
-" "Plug 'sheerun/vim-polyglot'
-" "Plug 'pangloss/vim-javascript'
+" Plug 'sheerun/vim-polyglot'
+Plug 'pangloss/vim-javascript'
 " "Plug 'othree/html5.vim'
 " "Plug 'hail2u/vim-css3-syntax'
-" "Plug 'mxw/vim-jsx'
+"Plug 'mxw/vim-jsx'
+" Plug 'othree/yajs.vim'
 " Plug 'ruanyl/vim-fixmyjs'
 " " Plug 'othree/javascript-libraries-syntax.vim'
 " " Plug 'mattn/emmet-vim'
@@ -49,10 +49,10 @@ Plug 'trevordmiller/nova-vim'
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " " Git it
-" Plug 'tpope/vim-fugitive'
-" Plug 'airblade/vim-gitgutter'
-" " Open GitHub
-" Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+" Open GitHub
+Plug 'tpope/vim-rhubarb'
 
 call plug#end()
 
@@ -64,32 +64,32 @@ filetype plugin indent on
 "
 "
 """""""""""""""""""""
-" set background=dark
-" set guifont=Source\ Code\ Pro\ for\ Powerline:h12
-" set ignorecase
-" set smartcase
-" set relativenumber number
+set background=dark
+set guifont=Source\ Code\ Pro\ for\ Powerline:h14
+set ignorecase
+set smartcase
+set relativenumber number
 set incsearch
 set hlsearch
-" set ignorecase
-" set expandtab
-" set gdefault
-" set shiftwidth=2
-" set softtabstop=2
-" set title
-" set showmode
-" set showcmd
-" set clipboard=unnamed
-" set mouse=a
-" set noerrorbells
-" set colorcolumn=80
-" set ruler
-" set cursorline
-" set suffixesadd+=.js " For gf to find require/imports
-" set backspace=indent,eol,start
-" set shortmess+=A
-" syntax on
-" filetype plugin indent on
+set ignorecase
+set expandtab
+set gdefault
+set shiftwidth=2
+set softtabstop=2
+set title
+set showmode
+set showcmd
+set clipboard=unnamed
+set mouse=a
+set noerrorbells
+set colorcolumn=80
+set ruler
+set cursorline
+set suffixesadd+=.js " For gf to find require/imports
+set backspace=indent,eol,start
+set shortmess+=A
+syntax on
+filetype plugin indent on
 
 " " Airline
 " let g:airline_powerline_fonts = 1
@@ -98,7 +98,6 @@ set hlsearch
 " " let g:airline_section_z = airline#section#create_right(['percentage'])
 " let g:airline#extensions#tabline#fnamemod = ':t'
 " " let g:airline#extensions#tabline#buffer_idx_mode = 1
-" " let g:airline_theme = 'nova'
 " let g:airline#extensions#branch#enabled = 0
 " let g:airline#extensions#hunks#enabled = 0
 " " Show buffer number in tab - rarely use
@@ -125,13 +124,13 @@ set hlsearch
 " nnoremap <Leader>/ :call CommentToggle()<CR>
 " vnoremap <Leader>/ :call CommentToggle()<CR>
 
-" " Change cursor shape in diff modes
-" let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-" let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-" let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+" Change cursor shape in diff modes
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
-" " FZF
-" nnoremap <leader>p :FZF<CR>
+" FZF
+nnoremap <leader>p :FZF<CR>
 
 " " Git stuff
 " nmap <leader>gb :Gblame<CR>
@@ -191,6 +190,14 @@ set hlsearch
 " vnoremap <tab> %
 " vnoremap <F1> <ESC>
 
+" Theme
+syntax enable
+" for vim 7
+set t_co=256
 
-" syntax enable
-colorscheme nova
+" for vim 8
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+colorscheme base16-oceanicnext
