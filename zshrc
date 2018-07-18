@@ -21,6 +21,11 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 plugins=(git colored-man-pages zsh-syntax-highlighting yarn osx brew)
 
+# Setup BrewFile
+if [ -f $(brew --prefix)/etc/brew-wrap ];then
+  source $(brew --prefix)/etc/brew-wrap
+fi
+
 ####################
 #
 # User configuration
