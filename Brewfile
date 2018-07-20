@@ -6,6 +6,7 @@ brew autoconf
 brew bash-completion
 brew ccat
 brew ctags
+brew fzf
 brew gdbm
 brew gettext
 brew git
@@ -70,28 +71,26 @@ cask alfred
 cask daisydisk
 cask firefox
 cask google-chrome
-cask iterm2
-cask karabiner
+cask kap
 cask licecap
 cask ngrok
-cask rubymine
-cask sequel-pro
-cask webpack-dashboard
+cask slack
 
 tap rcmdnk/file
 brew brew-file
+
+# Other Homebrew packages
+brew python3
 
 # Other Cask applications
 cask bettertouchtool
 cask dropbox
 cask font-hasklig-nerd-font
-cask gotomeeting
-cask kap
-cask karabiner-elements
+cask font-hasklig-nerd-font-mono
+cask iterm2
+cask karabiner
 cask moom
-cask origami-studio
-cask screenhero
-cask slack
+cask sequel-pro
 cask yakyak
 
 # App Store applications

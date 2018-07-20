@@ -3,10 +3,10 @@ export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
-ZSH_THEME="purity"
+ZSH_THEME="refined"
 
 autoload -U promptinit && promptinit
-prompt purity
+prompt refined
 
 # Disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
@@ -45,8 +45,6 @@ if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='nvim'
  fi
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
