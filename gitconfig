@@ -71,3 +71,6 @@ find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$
 [rebase]
 	autosquash = true
 
+[user]
+	name = Bryce Hill
+	email = bryceahill@gmail.com
