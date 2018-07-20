@@ -6,6 +6,12 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 # Homebrew
 ```sh
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+# Brewfile
+```sh
+# clone this directory and then install brewfile
+git clone git@github.com:brycehill/dotfiles.git
+cd dotfiles
 brew file install
 ```
 
