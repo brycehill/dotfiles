@@ -6,6 +6,15 @@ alias vim="/usr/local/bin/vim" # Overwrite vim without renaming /usr/bin/vim
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 unsetopt correct_all
 
+# Elm
+alias er="elm-repl"
+
+# For CV Project
+alias yd="yarn dev:inline"
+alias yda="yarn dev:all"
+alias ydp="yarn dev:portfolio"
+alias ys="yarn storybook"
+
 # Copy the current branch name
 alias gbc='git branch | grep \* | cut -f2 -d " " | pbcopy'
 alias ctags="`brew --prefix`/bin/ctags"
