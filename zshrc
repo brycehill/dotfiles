@@ -3,10 +3,10 @@ export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
-ZSH_THEME="refined"
+ZSH_THEME="purity"
 
-autoload -U promptinit && promptinit
-prompt refined
+# autoload -U promptinit && promptinit
+# prompt purity
 
 # Disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
@@ -53,6 +53,8 @@ if [[ -n $SSH_CONNECTION ]]; then
  else
    export EDITOR='nvim'
  fi
+
+fpath=( "$HOME/.zfunctions" $fpath )
 
 
 eval "$(rbenv init -)"

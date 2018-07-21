@@ -61,8 +61,8 @@ brew zsh-completions
 
 tap homebrew/cask-fonts
 cask font-hasklig
-cask font-hasklig-nerd-font-mono
 cask font-hasklig-nerd-font
+cask font-hasklig-nerd-font-mono
 
 tap homebrew/services
 
@@ -87,6 +87,7 @@ cask bettertouchtool
 cask dropbox
 cask font-hasklig-nerd-font
 cask font-hasklig-nerd-font-mono
+cask font-source-code-pro-for-powerline
 cask iterm2
 cask karabiner
 cask moom

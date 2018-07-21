@@ -7,6 +7,7 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 ```sh
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
+
 # Brewfile
 ```sh
 # clone this directory and then install brewfile
@@ -24,6 +25,13 @@ ln -Fs dotfiles/tmux.conf .tmux.conf
 ln -Fs dotfiles/gitconfig .gitconfig
 ln -Fs dotfiles/aliases.zsh $ZSH_CUSTOM/aliases.zsh
 ln -Fs dotfiles/Brewfile .config/brewfile/Brewfile
+```
+
+# Download and setup theme
+```sh
+curl https://raw.githubusercontent.com/therealklanni/purity/master/purity.zsh --output purity.zsh
+mkdir ~/.zfunctions
+cp purity.zsh ~/.zfunctions/prompt_purity_setup
 ```
 
 # Neovim
@@ -45,6 +53,12 @@ $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 curl -o- https://raw.githubuserconte
 ```
 
+
+# Mac Stuff
+```sh
+# Remove Dock Animation
+defaults write com.apple.dock autohide-time-modifier -float 0;killall Dock
+```
 
 Update font in iTerm, 14pt Hasklug Nerd Font Complete Mono
 Add like 1% vertical spacing
