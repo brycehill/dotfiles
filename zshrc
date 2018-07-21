@@ -31,12 +31,21 @@ fi
 # User configuration
 #
 ####################
-export PATH="$HOME/.cabal/bin:$HOME/.local/bin:/Applications/ghc-7.8.3.app/Contents/bin:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mysql/bin:/usr/local/mysql/bin:~/Library/Haskell/bin:~/.rbenv:~/.local/bin:$(yarn global bin):~/.config/yarn/global/node_modules:~/.local/bin"
+#
+export PATH="$HOME/.cabal/bin:$HOME/.local/bin:/Applications/ghc-7.8.3.app/Contents/bin"
+export PATH="$PATH:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin"
+export PATH="$PATH:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/bin:/bin"
+export PATH="$PATH:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mysql/bin"
+export PATH="$PATH:/usr/local/mysql/bin:~/Library/Haskell/bin:~/.rbenv"
+export PATH="$PATH:~/.local/bin:$(yarn global bin):~/.config/yarn/global/node_modules:~/.local/bin"
+export PATH="$HOME/.yarn/bin:$PATH"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 export FZF_DEFAULT_COMMAND='ag --hidden  --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 source $ZSH/oh-my-zsh.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -46,53 +55,8 @@ if [[ -n $SSH_CONNECTION ]]; then
  fi
 
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-###########
-#
-# Aliases
-#
-###########
-# For a full list of active aliases, run `alias`.
-alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="nvim ~/.oh-my-zsh"
-alias v="nvim"
-alias vim="/usr/local/bin/vim" # Overwrite vim without renaming /usr/bin/vim
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-unsetopt correct_all
-# lynx!
-alias lynx='/Applications/Lynxlet.app/Contents/Resources/lynx/bin/lynx'
-# For CV Project
-alias yd="yarn dev:inline"
-
-
-alias gbc='git branch | grep \* | cut -f2 -d ' ' | pbcopy'
-alias ctags="`brew --prefix`/bin/ctags"
-
-# fbr - checkout git branch
-fbr() {
-  local branches branch
-  branches=$(git branch -vv) &&
-  branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
-}
-
-# fs [FUZZY PATTERN] - Select selected tmux session
-#   - Bypass fuzzy finder if there's only one match (--select-1)
-#   - Exit if there's no match (--exit-0)
-fs() {
-  local session
-  session=$(tmux list-sessions -F "#{session_name}" | \
-    fzf --query="$1" --select-1 --exit-0) &&
-  tmux switch-client -t "$session"
-}
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 eval "$(rbenv init -)"
 
-export PATH="$HOME/.yarn/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
