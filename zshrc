@@ -56,7 +56,6 @@ if [[ -n $SSH_CONNECTION ]]; then
 
 fpath=( "$HOME/.zfunctions" $fpath )
 
-
 eval "$(rbenv init -)"
 
 
