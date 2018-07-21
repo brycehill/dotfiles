@@ -44,7 +44,8 @@ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
 # tmux
 ```sh
 # Install tpm for tmux plugins
-$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+ln -s dotfiles/tmuxline ~/.tmux/tmuxline
 ```
 
 
@@ -58,7 +59,10 @@ curl -o- https://raw.githubuserconte
 ```sh
 # Remove Dock Animation
 defaults write com.apple.dock autohide-time-modifier -float 0;killall Dock
+# New Screenshots folder
+mkdir ~/Documents/Screenshots
+defaults write com.apple.screencapture location ~/Documents/Screenshots
 ```
 
-Update font in iTerm, 14pt Hasklug Nerd Font Complete Mono
+Update font in iTerm, 14pt + Hasklug Nerd Font Complete Mono
 Add like 1% vertical spacing
