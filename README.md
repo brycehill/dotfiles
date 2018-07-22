@@ -23,8 +23,10 @@ ln -Fs dotfiles/nvimrc .nvimrc
 ln -Fs dotfiles/vimrc .vimrc
 ln -Fs dotfiles/tmux.conf .tmux.conf
 ln -Fs dotfiles/gitconfig .gitconfig
-ln -Fs dotfiles/aliases.zsh $ZSH_CUSTOM/aliases.zsh
 ln -Fs dotfiles/Brewfile .config/brewfile/Brewfile
+
+cp dotfiles/aliases.zsh $ZSH_CUSTOM/aliases.zsh
+source ~/.zshrc
 ```
 
 # Download and setup theme
