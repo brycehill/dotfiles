@@ -171,8 +171,10 @@ let delimitMate_expand_space = 1
 " JS Library Syntax Support
 let g:used_javascript_libs = 'jquery,underscore,angularjs,react,ramda'
 
+
 " Markdown
 let vim_markdown_preview_github=1
+let vim_markdown_preview_browser='Google Chrome'
 
 " NERDTree
 " let NERDTreeChDirMode=2
