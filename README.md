@@ -61,7 +61,10 @@ curl -o- https://raw.githubuserconte
 ```sh
 # Remove Dock Animation
 defaults write com.apple.dock autohide-time-modifier -float 0;killall Dock
-# New Screenshots folder
+defaults write com.apple.dock autohide-delay -float 0; killall Dock
+defaults write com.apple.dock workspaces-swoosh-animation-off -bool YES
+defaults write com.apple.finder AppleShowAllFiles -bool YES
+ New Screenshots folder
 mkdir ~/Documents/Screenshots
 defaults write com.apple.screencapture location ~/Documents/Screenshots
 ```
