@@ -1,6 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 ZSH_THEME="purity"
@@ -19,12 +20,16 @@ ENABLE_CORRECTION="true"
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+# Don't auto check for zsh updates. Check every 30 days.
+DISABLE_UPDATE_PROMPT="true"
+UPDATE_ZSH_DAYS=30
+
 plugins=(git colored-man-pages zsh-syntax-highlighting yarn osx brew)
 
-# Setup BrewFile
-if [ -f $(brew --prefix)/etc/brew-wrap ];then
-  source $(brew --prefix)/etc/brew-wrap
-fi
+# Setup BrewFile - Do this on new systems? Disable because slow.
+# if [ -f $(brew --prefix)/etc/brew-wrap ];then
+#   source $(brew --prefix)/etc/brew-wrap
+# fi
 
 ####################
 #
@@ -39,31 +44,21 @@ export PATH="$PATH:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/
 export PATH="$PATH:/usr/local/mysql/bin:~/Library/Haskell/bin:~/.rbenv"
 export PATH="$PATH:~/.local/bin:$(yarn global bin):~/.config/yarn/global/node_modules:~/.local/bin"
 export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
-# export MANPATH="/usr/local/man:$MANPATH"
 export FZF_DEFAULT_COMMAND='ag --hidden  --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
-   export EDITOR='nvim'
- fi
 
 fpath=( "$HOME/.zfunctions" $fpath )
 
 eval "$(rbenv init -)"
 
 
+# Use `loadnvm` alias to load nvm on demand
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_dIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Export `z`
-. '/usr/local/etc/profile.d/z.sh'
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"

@@ -18,6 +18,11 @@ alias ys="yarn storybook"
 # Copy the current branch name
 alias gbc='git branch | grep \* | cut -f2 -d " " | pbcopy'
 alias ctags="`brew --prefix`/bin/ctags"
+# Most recent commits, compact
+alias glr="glol -n 10"
+
+# Only load nvm
+alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
 
 # fbr - checkout git branch
 fbr() {
