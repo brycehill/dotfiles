@@ -30,7 +30,7 @@ Plug 'craigemery/vim-autotag'
 
 " Colors
 Plug 'chriskempson/base16-vim'
-Plug 'mhartington/oceanic-next'
+" Plug 'mhartington/oceanic-next'
 " Plug 'altercation/vim-colors-solarized'
 " Plug 'KeitaNakamura/neodark.vim'
 Plug 'rakr/vim-one'
@@ -328,9 +328,9 @@ let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 " One Dark
-" let g:onedark_terminal_italics=1
-" let g:airline_theme='onedark'
-" colorscheme base16-oceanicnext
+let g:onedark_terminal_italics=1
+let g:airline_theme='onedark'
+colorscheme onedark
 
 
 
@@ -338,10 +338,10 @@ set termguicolors
 " let g:one_allow_italics = 1
 
 " OceanicNext
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-let g:airline_theme='oceanicnext'
-colorscheme OceanicNext
+" let g:oceanic_next_terminal_bold = 1
+" let g:oceanic_next_terminal_italic = 1
+" let g:airline_theme='oceanicnext'
+" colorscheme OceanicNext
 
 
 " Neo Dark
