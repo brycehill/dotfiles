@@ -22,40 +22,34 @@ Plug 'tpope/vim-unimpaired'
 Plug 'w0rp/ale'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
-"Plug 'tomtom/tcomment_vim'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'ntpeters/vim-better-whitespace'
 " Auto regenerate ctags
-Plug 'craigemery/vim-autotag'
+" Plug 'craigemery/vim-autotag'
+" Plug 'xolox/vim-easytags'
 
 " Colors
 Plug 'chriskempson/base16-vim'
-" Plug 'mhartington/oceanic-next'
-" Plug 'altercation/vim-colors-solarized'
 " Plug 'KeitaNakamura/neodark.vim'
 Plug 'rakr/vim-one'
-" Plug 'trevordmiller/nova-vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'joshdick/onedark.vim'
 
 " Syntax
 Plug 'moll/vim-node'
-" Nova
 Plug 'pangloss/vim-javascript'
 Plug 'sheerun/vim-polyglot'
 
 " Plug 'mxw/vim-jsx'
-" OceanicNext
 " Plug 'othree/yajs.vim'
-" Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ap/vim-css-color'
 " Highlight SCSS color variables
-" Plug 'gorodinskiy/vim-coloresque'
-" Plug 'shmargum/vim-sass-colors'
+Plug 'shmargum/vim-sass-colors'
 
 Plug 'mbbill/undotree'
 Plug 'easymotion/vim-easymotion'
+" Auto de-highlight searched words
 Plug 'haya14busa/incsearch.vim'
 " Surround Shortcuts
 Plug 'tpope/vim-surround'
@@ -64,6 +58,7 @@ Plug 'tpope/vim-surround'
 Plug 'christoomey/vim-tmux-navigator'
 " Make focus events work in tmux
 Plug 'tmux-plugins/vim-tmux-focus-events'
+
 " Dark Powered neo-completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
