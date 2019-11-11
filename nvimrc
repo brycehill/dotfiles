@@ -11,8 +11,9 @@ call plug#begin()
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+
 " UI
-" Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
@@ -24,27 +25,27 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'ntpeters/vim-better-whitespace'
-" Auto regenerate ctags
-" Plug 'craigemery/vim-autotag'
-" Plug 'xolox/vim-easytags'
+Plug 'unblevable/quick-scope'
 
 " Colors
 Plug 'chriskempson/base16-vim'
-" Plug 'KeitaNakamura/neodark.vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'tobiasandersen/oceanic-next'
+Plug 'KeitaNakamura/neodark.vim'
 Plug 'rakr/vim-one'
 Plug 'flazz/vim-colorschemes'
 Plug 'joshdick/onedark.vim'
+Plug 'drewtempelmeyer/palenight.vim'
 
 " Syntax
-Plug 'moll/vim-node'
-Plug 'pangloss/vim-javascript'
+" Plug 'moll/vim-node'
 Plug 'sheerun/vim-polyglot'
+Plug 'alx741/yesod.vim'
+Plug 'pbrisbin/vim-syntax-shakespeare'
 
-" Plug 'mxw/vim-jsx'
-" Plug 'othree/yajs.vim'
 Plug 'editorconfig/editorconfig-vim'
+" Highlight CSS/SCSS color variables
 Plug 'ap/vim-css-color'
-" Highlight SCSS color variables
 Plug 'shmargum/vim-sass-colors'
 
 Plug 'mbbill/undotree'
@@ -61,6 +62,9 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Dark Powered neo-completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+" Because default foldmethod=syntax is SLOW
+Plug 'Konfekt/FastFold'
 
 " Git it
 Plug 'tpope/vim-fugitive'
@@ -79,7 +83,7 @@ filetype plugin indent on
 " Settings
 "
 """"""""""""""""""""""""""""
-set guifont=Hasklug\ Nerd\ Font:h15
+set guifont=Hasklug\ Nerd\ Font:h13\ Bold
 " set clipboard=unnamed
 set gdefault
 set cursorline
@@ -112,16 +116,18 @@ set relativenumber
 " Maintain undo history between sessions
 set undofile
 set undodir=~/.config/nvim/undodir
-
 " Folding
 set foldmethod=syntax
-set foldcolumn=1
-let javascript_fold=1
 set foldlevelstart=99
+"Emojis
+set completefunc=emoji#complete
 
+"
 " Airline
+"
+
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#hunks#enabled = 0
@@ -130,82 +136,111 @@ let g:airline_section_b = ''
 let g:airline_section_c = airline#section#create([''])
 let g:airline_section_y = airline#section#create(['filetype', ' ' , 'ffenc'])
 let g:airline_section_z = airline#section#create(['%l'])
-
 let g:_extensions = ['ale', 'branch', 'quickfix', 'tabline']
-" Disable the theme as we'll customize below
-let g:airline#extensions#tmuxline#enabled = 0
 let g:airline#extensions#ale#enabled = 1
+" Disable the theme as we'll customize below
+" let g:airline#extensions#tmuxline#enabled = 1
 
-" Tmuxline
-let g:tmuxline_theme = 'vim_statusline_2'
-let g:tmuxline_powerline_separators = 0
+" Tmuxline - If not setting theme via plugin
+" let g:tmuxline_theme = 'vim_statusline_2'
+" let g:tmuxline_powerline_separators = 0
 " Configure the tmux line:
 " " Session Name  ->  Active Windows  ->  Time
-let g:tmuxline_preset = {
-      \'a'    : '#S',
-      \'cwin'  : '#W',
-      \'win' : ['#W','#I'],
-      \'z'    : '%r'}
+" let g:tmuxline_preset = {
+"       \'a'    : '#S',
+"       \'cwin'  : '#W',
+"       \'win' : ['#W','#I'],
+"       \'z'    : '%r'}
 
+"
 " Deoplete
+"
+
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
+
+call deoplete#custom#option('max_list', 10)
+call deoplete#custom#option('sources', {
+      \ '_': ['buffer']
+      \})
+
 inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<Ctrl-j>"
 inoremap <expr><C-k> pumvisible() ? "\<Up>" : "\<Ctrl-k>"
 
+"
 " FZF
+"
+
 nnoremap <leader>p :FZF<CR>
 nnoremap <leader>t :Tags<CR>
 nnoremap <leader>g :BTags<CR>
+" Used to delete buffers from buffer pane
+" Hopefully supported within FZF someday
+let g:fzf_action = {
+    \ 'ctrl-q': 'wall | bdelete',
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-x': 'split',
+    \ 'ctrl-v': 'vsplit' }
 
-
+"
 " Delimitmate
+"
+
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
-
 " JS Library Syntax Support
 let g:used_javascript_libs = 'jquery,underscore,angularjs,react,ramda'
 
-
+"
 " Markdown
+"
+
 let vim_markdown_preview_github=1
 let vim_markdown_preview_browser='Google Chrome'
 
-" NERDTree
-" let NERDTreeChDirMode=2
-" let NERDTreeShowBookmarks=1
-" let NERDTreeShowHidden=1
+"
+" Quick Scope
+"
+
+let g:qs_max_chars=80
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 :set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
 " Write all buffers before navigating from Vim to tmux pane
 let g:tmux_navigator_save_on_switch = 2
 
+"
+" Ale
+"
+
 " Enable Ale fixers (for prettier formatting)
 let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['scss'] = ['prettier']
 let g:ale_fixers['css'] = ['prettier']
+let g:ale_fixers['html'] = ['prettier']
+let g:ale_fixers['erb'] = ['prettier']
+let g:ale_fixers['yaml'] = ['prettier']
 let g:ale_fixers['haskell'] = ['brittany']
+let g:ale_fixers['lucius'] = ['prettier']
+" let g:ale_fixers['ruby'] = ['rubocop']
 " Enabling this is annoying for package.json files
 " let g:ale_fixers['json'] = ['prettier']
 let g:ale_fix_on_save = 1
-
-nmap <leader>f :ALEFix<CR>
-
+let g:ale_virtualenv_dir_names = []
+let g:ale_lint_on_text_changed = 1
+let g:ale_lint_on_enter = 0
+let g:ale_linters_explicit = 1
 let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'html': ['htmlhint'],
-\   'liquid': ['htmlhint']
+\   'javascript': ['eslint']
 \}
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '●' " Less aggressive than the default '>>'
 let g:ale_sign_warning = '.'
-let g:ale_lint_on_enter = 0
-let g:ale_html_htmlhint_use_global = "1"
 let g:ale_set_highlights = 0
 let g:ale_javascript_prettier_use_local_config = 1
-
 let g:jsx_ext_required = 0
 
 " Show Error?
@@ -215,143 +250,71 @@ set statusline+=%*
 " set laststatus=
 set hidden
 
+nmap <leader>f :ALEFix<CR>
+
+"
+" Polyglot
+"
+
 " Enable highlighting for JSDoc
 let g:javascript_plugin_jsdoc = 1
-
-" Polyglot
-" Polyglot broke the JS syntax stuff :(
-" let g:polyglot_disabled = ['js']
 let g:javascript_plugin_flow = 1
 
-""""""""""""""""""""""
-"
-" Commands
-"
-""""""""""""""""""""""
-" Save on Focus out
-au FocusLost * :wa
 
-""""""""""""""""""""""
 "
-" Mappings
+" Netrw
 "
-""""""""""""""""""""""
-" Open File Tree
-" nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>n :Vexplore<CR>
+
 let g:netrw_liststyle = 3 " Tree View
 let g:netrw_banner = 0
 " let g:netrw_winsize = 25 " 25% of page
 " let g:netrw_browse_split = 4 " Open in previous window
 
-
-
-
-" Comments
-map <Leader>c gcc<ESC>
-
-"Emojis
-set completefunc=emoji#complete
-
-" Navigate between buffers
-" Map fzf.vim ':Buffers'
-nnoremap <leader>o :Buffers<CR>
-nnoremap <leader>l :bnext<CR>
-nnoremap <leader>h :bprevious<CR>
-" Delete Buffer, but keep split open
-nmap <leader>bq :bp<bar>bd #<CR>
-
-" Git Shortcuts
-nmap :gb :Gblame<CR>
-nmap :gst :Gstatus<CR>
-nmap :gd :Gdiff<CR>
-
-" incsearch
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-let g:incsearch#auto_nohlsearch = 1
-" Automatic nohsearch
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-" map g* <Plug>(incsearch-nohl-g*)
-" map g# <Plug>(incsearch-nohl-g#)
+"
+" GitGutter
+"
 
 " Unmap GitGutter stuff I don't use
 let g:gitgutter_map_keys = 0
 
-" Move to end of first line on git commit messages
-autocmd FileType gitcommit call cursor(1, 99)
-
-" Command Mode
-cnoremap <C-a>  <Home>
-
-" Normal Mode
-nmap <S-Enter> O<Esc>
-nmap <CR> o<Esc>
-nnoremap <leader>a :Ag<CR>
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
-nnoremap <leader>, <C-w><C-v><C-l>:e ~/.nvimrc<CR>
-
-"New Vertical Split
-nnoremap <Leader>v <C-w>v<C-w>l
-" Move around splits quicker
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-nnoremap <leader>d :bdelete<CR>
-nnoremap <leader>d! :bdelete!<CR>
-nnoremap <leader>gd :term git diff %<cr>
-nnoremap <leader>; :noh<cr>
-
-" Visual Mode
-" Move entire blocks of code
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
-""""""""""""""""""""""""""""
 "
-" Colors
+" Terminal
 "
-""""""""""""""""""""""""""""
-syntax enable
-let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
-" One Dark
-let g:onedark_terminal_italics=1
-let g:airline_theme='onedark'
-colorscheme onedark
+" tnoremap <Esc> <C-\><C-n>
+
+" " Maps ctrl-b + c to open a new tab window
+" nnoremap <C-b>c :tabnew +terminal<CR>
+" tnoremap <C-b>c <C-\><C-n>:tabnew +terminal<CR>
+
+" " Maps ctrl-b + - to open a new horizontal split with a terminal
+" nnoremap <C-b>- :new +terminal<CR>
+" tnoremap <C-b>- <C-\><C-n>:new +terminal<CR>
+
+" " Maps ctrl-b + | to open a new vertical split with a terminal
+" nnoremap <C-b>| :vnew +terminal<CR>
+" tnoremap <C-b>| <C-\><C-n>:vnew +terminal<cr>
+
+" augroup neovim_terminal
+"   autocmd!
+
+"   " Enter Terminal-mode (insert) automatically
+"   autocmd TermOpen * startinsert
+
+"   " Disables number lines on terminal buffers
+"   autocmd TermOpen * :set nonumber norelativenumber
+" augroup END
 
 
+""""""""""""""""""""""
+"
+" Custom Commands
+"
+""""""""""""""""""""""
 
 
-" let g:one_allow_italics = 1
+" Save on Focus out
+au FocusLost * :wa
 
-" OceanicNext
-" let g:oceanic_next_terminal_bold = 1
-" let g:oceanic_next_terminal_italic = 1
-" let g:airline_theme='oceanicnext'
-" colorscheme OceanicNext
-
-
-" Neo Dark
-" let g:neodark#use_custom_terminal_theme = 1
-" colorscheme neodark
-" let g:airline_theme='neodark'
-
-" Customize whitespace to match Nova colorscheme
-highlight ExtraWhitespace guibg=#D18EC2
-
-" NERDTrees File highlighting
-" function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-"   exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-"   exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-" endfunction
 
 " When using `dd` in the quickfix list, remove the item from the quickfix list.
 function! RemoveQFItem()
@@ -367,14 +330,122 @@ endfunction
 " Use map <buffer> to only map dd in the quickfix window. Requires +localmap
 autocmd FileType qf map <buffer> dd :RemoveQFItem<cr>
 
-" call NERDTreeHighlightFile('md', 'blue', 'none', '#83AFE5', 'none')
-" call NERDTreeHighlightFile('config', 'yellow', 'none', '#DADA93', 'none')
-" call NERDTreeHighlightFile('conf', 'yellow', 'none', '#DADA93', 'none')
-" call NERDTreeHighlightFile('json', 'green', 'none', '#A8CE93', 'none')
-" call NERDTreeHighlightFile('yml', 'green', 'none', '#A8CE93', 'none')
-" call NERDTreeHighlightFile('html', 'green', 'none', '#A8CE93', 'none')
-" call NERDTreeHighlightFile('css', 'Magenta', 'none', '#D18EC2', 'none')
-" call NERDTreeHighlightFile('scss', 'Magenta', 'none', '#D18EC2', 'none')
-" call NERDTreeHighlightFile('js', 'yellow', 'none', '#DADA93', 'none')
-" call NERDTreeHighlightFile('ts', 'Blue', 'none', '#6699cc', 'none')
-" call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', 'none')
+" Move to end of first line on git commit messages
+autocmd FileType gitcommit call cursor(1, 99)
+
+
+""""""""""""""""""""""
+"
+" Mappings
+"
+""""""""""""""""""""""
+
+"
+" Normal Mode
+"
+
+nnoremap <leader>n :Vexplore<CR>
+" Navigate between buffers
+nnoremap <leader>o :Buffers<CR>
+nnoremap <leader>l :bnext<CR>
+nnoremap <leader>h :bprevious<CR>
+nnoremap <leader>a :Ag<CR>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>, <C-w><C-v><C-l>:e ~/.nvimrc<CR>
+"New Vertical Split
+nnoremap <Leader>v <C-w>v<C-w>l
+" Move around splits quicker
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <leader>d :bdelete<CR>
+nnoremap <leader>d! :bdelete!<CR>
+nnoremap <leader>gd :term git diff %<cr>
+nnoremap <leader>; :noh<cr>
+" Delete Buffer, but keep split open
+nmap <leader>bq :bp<bar>bd #<CR>
+nmap <S-Enter> O<Esc>
+nmap <CR> o<Esc>
+
+" Git Shortcuts
+nmap :gb :Gblame<CR>
+nmap :gst :Gstatus<CR>
+nmap :gd :Gdiff<CR>
+
+" Comments
+map <Leader>c gcc<ESC>
+
+" incsearch
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+let g:incsearch#auto_nohlsearch = 1
+
+" Automatic nohsearch
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+
+
+"
+" Command Mode
+"
+
+cnoremap <C-a>  <Home>
+
+"
+" Visual Mode
+"
+
+" Move entire blocks of code
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+
+""""""""""""""""""""""""""""
+"
+" Colors
+"
+""""""""""""""""""""""""""""
+
+
+" Customize whitespace to match Nova colorscheme
+highlight ExtraWhitespace guibg=#D18EC2
+syntax enable
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+
+"
+" Themes
+"
+
+" One Dark
+" let g:onedark_hide_endofbuffer=1
+" let g:onedark_terminal_italics=1
+" let g:airline_theme='onedark'
+" colorscheme onedark
+
+" One
+" let g:airline_theme='one'
+" let g:one_allow_italics = 1
+" colorscheme one
+
+" Nord
+let g:nord_italic = 1
+let g:nord_underline = 1
+colorscheme nord
+
+" OceanicNext
+" let g:oceanic_next_terminal_bold = 1
+" let g:oceanic_next_terminal_italic = 1
+" let g:airline_theme='oceanicnext'
+" colorscheme OceanicNext
+
+" Neo Dark
+" let g:neodark#use_custom_terminal_theme = 1
+" let g:airline_theme='neodark'
+" colorscheme neodark
