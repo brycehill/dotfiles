@@ -1,13 +1,9 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
-
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 ZSH_THEME="purity"
-
-# autoload -U promptinit && promptinit
-# prompt purity
 
 # Disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
@@ -24,7 +20,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 DISABLE_UPDATE_PROMPT="true"
 UPDATE_ZSH_DAYS=30
 
-plugins=(git colored-man-pages zsh-syntax-highlighting yarn osx brew)
+plugins=(git colored-man-pages zsh-syntax-highlighting osx)
 
 # Setup BrewFile - Do this on new systems? Disable because slow.
 # if [ -f $(brew --prefix)/etc/brew-wrap ];then
@@ -36,7 +32,7 @@ plugins=(git colored-man-pages zsh-syntax-highlighting yarn osx brew)
 # User configuration
 #
 ####################
-#
+
 export PATH="$HOME/.cabal/bin:$HOME/.local/bin:/Applications/ghc-7.8.3.app/Contents/bin"
 export PATH="$PATH:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin"
 export PATH="$PATH:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/bin:/bin"
@@ -47,18 +43,19 @@ export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
-export FZF_DEFAULT_COMMAND='ag --hidden  --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs --hidden'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
 fpath=( "$HOME/.zfunctions" $fpath )
 
 eval "$(rbenv init -)"
 
+# Added by n-install (see http://git.io/n-install-repo).
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
-# Use `loadnvm` alias to load nvm on demand
-export NVM_DIR="$HOME/.nvm"
+
+
 
