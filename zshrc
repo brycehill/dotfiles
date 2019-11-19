@@ -43,7 +43,7 @@ export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
-export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs --hidden'
+export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs --ignore-global --no-hidden'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 source $ZSH/oh-my-zsh.sh
