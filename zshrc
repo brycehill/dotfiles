@@ -16,11 +16,12 @@ ENABLE_CORRECTION="true"
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+
 # Don't auto check for zsh updates. Check every 30 days.
 DISABLE_UPDATE_PROMPT="true"
 UPDATE_ZSH_DAYS=30
 
-plugins=(git colored-man-pages zsh-syntax-highlighting osx)
+plugins=(git colored-man-pages osx)
 
 # Setup BrewFile - Do this on new systems? Disable because slow.
 # if [ -f $(brew --prefix)/etc/brew-wrap ];then
@@ -43,19 +44,19 @@ export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
-export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs --ignore-global --no-hidden'
+export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs --ignore-global --hidden'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-fpath=( "$HOME/.zfunctions" $fpath )
+fpath=( "~/.oh-my-zsh/themes/pure/" $fpath )
 
 eval "$(rbenv init -)"
 
+
+
+
+
 # Added by n-install (see http://git.io/n-install-repo).
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
-
-
-
-

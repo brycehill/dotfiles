@@ -42,7 +42,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'alx741/yesod.vim'
 Plug 'pbrisbin/vim-syntax-shakespeare'
-
+Plug 'reasonml-editor/vim-reason-plus'
 Plug 'editorconfig/editorconfig-vim'
 " Highlight CSS/SCSS color variables
 Plug 'ap/vim-css-color'
@@ -182,6 +182,16 @@ let g:fzf_action = {
     \ 'ctrl-x': 'split',
     \ 'ctrl-v': 'vsplit' }
 
+" function! RipgrepFzf(query, fullscreen)
+"   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+"   let initial_command = printf(command_fmt, shellescape(a:query))
+"   let reload_command = printf(command_fmt, '{q}')
+"   let spec = {'options': ['--query', a:query, '--bind', 'change:reload:'.reload_command]}
+"   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+" endfunction
+
+" command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
+
 "
 " Delimitmate
 "
@@ -225,6 +235,7 @@ let g:ale_fixers['erb'] = ['prettier']
 let g:ale_fixers['yaml'] = ['prettier']
 let g:ale_fixers['haskell'] = ['brittany']
 let g:ale_fixers['lucius'] = ['prettier']
+let g:ale_fixers['reason'] = ['refmt']
 " let g:ale_fixers['ruby'] = ['rubocop']
 " Enabling this is annoying for package.json files
 " let g:ale_fixers['json'] = ['prettier']
@@ -236,6 +247,14 @@ let g:ale_linters_explicit = 1
 let g:ale_linters = {
 \   'javascript': ['eslint']
 \}
+let g:ale_sign_error                  = '✘'
+let g:ale_sign_warning                = '⚠'
+highlight ALEErrorSign ctermbg        =NONE ctermfg=red
+highlight ALEWarningSign ctermbg      =NONE ctermfg=yellow
+" let g:ale_lint_on_text_changed        = 'never'
+" let g:ale_lint_on_enter               = 0
+" let g:ale_lint_on_save                = 1
+
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '●' " Less aggressive than the default '>>'
 let g:ale_sign_warning = '.'
@@ -349,7 +368,7 @@ nnoremap <leader>n :Vexplore<CR>
 nnoremap <leader>o :Buffers<CR>
 nnoremap <leader>l :bnext<CR>
 nnoremap <leader>h :bprevious<CR>
-nnoremap <leader>a :Ag<CR>
+nnoremap <leader>a :Rg<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>, <C-w><C-v><C-l>:e ~/.nvimrc<CR>
