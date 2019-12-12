@@ -13,7 +13,7 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 # clone this directory and then install brewfile
 git clone git@github.com:brycehill/dotfiles.git
 cd dotfiles
-brew file install
+brew bundle install ./Brewfile
 ```
 
 # Link up stuff
@@ -23,7 +23,7 @@ ln -Fs dotfiles/nvimrc .nvimrc
 ln -Fs dotfiles/vimrc .vimrc
 ln -Fs dotfiles/tmux.conf .tmux.conf
 ln -Fs dotfiles/gitconfig .gitconfig
-ln -Fs dotfiles/Brewfile .config/brewfile/Brewfile
+ln -Fs ~/dotfiles/alacritty.yml ~/.config/alacritty/alacritty.yml
 
 cp dotfiles/aliases.zsh $ZSH_CUSTOM/aliases.zsh
 source ~/.zshrc
@@ -32,8 +32,7 @@ source ~/.zshrc
 # Download and setup theme
 ```sh
 curl https://raw.githubusercontent.com/therealklanni/purity/master/purity.zsh --output purity.zsh
-mkdir ~/.zfunctions
-cp purity.zsh ~/.zfunctions/prompt_purity_setup
+ln -s purity.zsh ~/.oh-my-zsh/themes/purity.zsh-theme
 ```
 
 # Neovim
@@ -53,9 +52,6 @@ ln -s dotfiles/tmuxline ~/.tmux/tmuxline
 
 
 # Node / nvm / npm
-```sh
-curl -o- https://raw.githubuserconte
-```
 
 
 # Mac Stuff
@@ -69,6 +65,3 @@ defaults write com.apple.finder AppleShowAllFiles -bool YES
 mkdir ~/Documents/Screenshots
 defaults write com.apple.screencapture location ~/Documents/Screenshots
 ```
-
-Update font in iTerm, 14pt + Hasklug Nerd Font Complete Mono
-Add like 1% vertical spacing
