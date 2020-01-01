@@ -39,6 +39,7 @@ cask "font-hasklig-nerd-font-mono"
 cask "google-chrome"
 cask "moom"
 cask "ngrok"
+cask "oni"
 cask "sequel-pro"
 cask "slack"
 mas "Cleaner-App", id: 1013897218
