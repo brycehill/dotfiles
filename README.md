@@ -1,14 +1,17 @@
 # Ohmyzsh
+
 ```sh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
 # Homebrew
+
 ```sh
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 # Brewfile
+
 ```sh
 # clone this directory and then install brewfile
 git clone git@github.com:brycehill/dotfiles.git
@@ -17,12 +20,16 @@ brew bundle install ./Brewfile
 ```
 
 # Link up stuff
+
 ```sh
-ln -Fs dotfiles/zshrc .zshrc
-ln -Fs dotfiles/nvimrc .nvimrc
-ln -Fs dotfiles/vimrc .vimrc
-ln -Fs dotfiles/tmux.conf .tmux.conf
-ln -Fs dotfiles/gitconfig .gitconfig
+ln -Fs dotfiles/zshrc ~/.zshrc
+ln -Fs dotfiles/nvimrc ~/.config/nvim/init.vim
+ln -Fs dotfiles/init.lua ~/.config/nvim/init.lua
+ln -Fs dotfiles/lua/plugins.lua ~/.config/nvim/lua/plugins.lua
+ln -Fs dotfiles/vimrc ~/.vimrc
+ln -Fs dotfiles/tmux.conf ~/.tmux.conf
+ln -Fs dotfiles/gitconfig ~/.gitconfig
+ln -Fs dotfiles/ignore ~/.ignore
 ln -Fs ~/dotfiles/alacritty.yml ~/.config/alacritty/alacritty.yml
 
 cp dotfiles/aliases.zsh $ZSH_CUSTOM/aliases.zsh
@@ -30,31 +37,34 @@ source ~/.zshrc
 ```
 
 # Download and setup theme
+
 ```sh
 curl https://raw.githubusercontent.com/therealklanni/purity/master/purity.zsh --output purity.zsh
 ln -s purity.zsh ~/.oh-my-zsh/themes/purity.zsh-theme
 ```
 
 # Neovim
+
 ```sh
-pip install neovim
+pip install neovim # Needed?
+pip3 install --user pynvim # For Deoplete
 #  Install vim-plug
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
 # tmux
+
 ```sh
 # Install tpm for tmux plugins
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ln -s dotfiles/tmuxline ~/.tmux/tmuxline
 ```
 
-
 # Node / nvm / npm
 
-
 # Mac Stuff
+
 ```sh
 # Remove Dock Animation
 defaults write com.apple.dock autohide-time-modifier -float 0;killall Dock

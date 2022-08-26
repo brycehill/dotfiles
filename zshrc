@@ -38,23 +38,43 @@ export PATH="$HOME/.cabal/bin:$HOME/.local/bin:/Applications/ghc-7.8.3.app/Conte
 export PATH="$PATH:/usr/local/mysql/bin:/usr/local/git/bin/git:/usr/local/bin:/usr/bin"
 export PATH="$PATH:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/bin:/bin"
 export PATH="$PATH:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/local/mysql/bin"
-export PATH="$PATH:/usr/local/mysql/bin:~/Library/Haskell/bin:~/.rbenv"
-export PATH="$PATH:~/.local/bin:$(yarn global bin):~/.config/yarn/global/node_modules:~/.local/bin"
-export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$PATH:/usr/local/mysql/bin:~/Library/Haskell/bin:"
+export PATH="$PATH:~/.local/bin"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
-export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs --ignore-global --hidden'
+# export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs --ignore-global'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
+
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source $ZSH/oh-my-zsh.sh
 
 fpath=( "~/.oh-my-zsh/themes/pure/" $fpath )
 
-eval "$(rbenv init -)"
+alias fzfi='rg --files --hidden --follow --no-ignore-vcs -g "!{node_modules,.git}" | fzf'
+alias vifi='nvim $(fzfi)'
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Auto load node version when a `.nvmrc` file is found
+autoload -U add-zsh-hook
+
+load-nvmrc() {
+  if [[ -f .nvmrc && -r .nvmrc ]]; then
+    nvm use
+  elif [[ $(nvm version) != $(nvm version default)  ]]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
 
 
 

@@ -9,17 +9,26 @@ unsetopt correct_all
 # Elm
 alias er="elm-repl"
 
-# For CV Project
-alias yd="yarn dev:inline"
-alias yda="yarn dev:all"
-alias ydp="yarn dev:portfolio"
-alias ys="yarn storybook"
+# NPM
+alias ns='npm start'
+alias dev='npm run dev'
+alias nt='npm test'
+alias nrc='npm run cy:run'
+alias nro='npm run cy:open'
+alias nrs='npm run storybook'
+
+# yarn
+alias yd='yarn dev'
+alias yt='yarn test'
+alias yrc='yarn cy:run'
+alias yro='yarn cy:open'
+alias yrs='yarn storybook'
 
 # Copy the current branch name
 alias gbc='git branch | grep \* | cut -f2 -d " " | pbcopy'
 alias ctags="`brew --prefix`/bin/ctags"
 # Most recent commits, compact
-alias glr="glol -n 10"
+alias glr="glol -n 20"
 
 # Only load nvm
 alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'

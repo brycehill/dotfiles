@@ -11,7 +11,8 @@ call plug#begin()
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+" Intelisense, Linting, Formatting
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " UI
 Plug 'bling/vim-airline'
@@ -20,7 +21,6 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
-Plug 'w0rp/ale'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
 Plug 'JamshedVesuna/vim-markdown-preview'
@@ -38,18 +38,34 @@ Plug 'joshdick/onedark.vim'
 Plug 'drewtempelmeyer/palenight.vim'
 
 " Syntax
-" Plug 'moll/vim-node'
+Plug 'moll/vim-node'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'jonsmithers/vim-html-template-literals'
 Plug 'sheerun/vim-polyglot'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'leafgarland/typescript-vim'
 Plug 'alx741/yesod.vim'
 Plug 'pbrisbin/vim-syntax-shakespeare'
+Plug 'ryym/vim-riot'
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'editorconfig/editorconfig-vim'
 " Highlight CSS/SCSS color variables
 Plug 'ap/vim-css-color'
-Plug 'shmargum/vim-sass-colors'
+" Plug 'shmargum/vim-sass-colors'
+
+" To enable more of the features of rust-analyzer, such as inlay hints and more!
+Plug 'neovim/nvim-lspconfig'
+Plug 'simrat39/rust-tools.nvim'
+Plug 'rust-lang/rust.vim',         { 'for': 'rust' }
+
+
+" Debugging
+Plug 'nvim-lua/plenary.nvim'
+Plug 'mfussenegger/nvim-dap'
+
 
 Plug 'mbbill/undotree'
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 " Auto de-highlight searched words
 Plug 'haya14busa/incsearch.vim'
 " Surround Shortcuts
@@ -61,13 +77,17 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Dark Powered neo-completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" For Denite features
+" Plug 'Shougo/denite.nvim'
 
 " Because default foldmethod=syntax is SLOW
 Plug 'Konfekt/FastFold'
 
 " Git it
 Plug 'tpope/vim-fugitive'
+" Bitbucket
+Plug 'tommcdo/vim-fubitive'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'junegunn/vim-emoji'
@@ -92,6 +112,9 @@ set nowrap
 set autoread
 " set autochdir
 set synmaxcol=200
+
+set colorcolumn=80
+
 set tabstop=4
 set expandtab
 set number
@@ -136,8 +159,7 @@ let g:airline_section_b = ''
 let g:airline_section_c = airline#section#create([''])
 let g:airline_section_y = airline#section#create(['filetype', ' ' , 'ffenc'])
 let g:airline_section_z = airline#section#create(['%l'])
-let g:_extensions = ['ale', 'branch', 'quickfix', 'tabline']
-let g:airline#extensions#ale#enabled = 1
+let g:_extensions = ['branch', 'quickfix', 'tabline']
 " Disable the theme as we'll customize below
 " let g:airline#extensions#tmuxline#enabled = 1
 
@@ -156,16 +178,20 @@ let g:airline#extensions#ale#enabled = 1
 " Deoplete
 "
 
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#file#enable_buffer_path = 1
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#file#enable_buffer_path = 1
 
-call deoplete#custom#option('max_list', 10)
-call deoplete#custom#option('sources', {
-      \ '_': ['buffer']
-      \})
+" call deoplete#custom#option('max_list', 10)
+" call deoplete#custom#option('sources', {
+"       \ '_': ['buffer']
+"       \})
 
 inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<Ctrl-j>"
 inoremap <expr><C-k> pumvisible() ? "\<Up>" : "\<Ctrl-k>"
+
+" Disable Interactive History
+nnoremap q: <nop>
+nnoremap Q <nop>
 
 "
 " FZF
@@ -205,8 +231,11 @@ let g:used_javascript_libs = 'jquery,underscore,angularjs,react,ramda'
 " Markdown
 "
 
+" Default: '<C-p>'
 let vim_markdown_preview_github=1
 let vim_markdown_preview_browser='Google Chrome'
+
+
 
 "
 " Quick Scope
@@ -221,55 +250,43 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " Write all buffers before navigating from Vim to tmux pane
 let g:tmux_navigator_save_on_switch = 2
 
+
 "
-" Ale
+"TypeScript
+"
+let g:typescript_indent_disable = 1
+
+"
+"CoC
 "
 
-" Enable Ale fixers (for prettier formatting)
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['scss'] = ['prettier']
-let g:ale_fixers['css'] = ['prettier']
-let g:ale_fixers['html'] = ['prettier']
-let g:ale_fixers['erb'] = ['prettier']
-let g:ale_fixers['yaml'] = ['prettier']
-let g:ale_fixers['haskell'] = ['brittany']
-let g:ale_fixers['lucius'] = ['prettier']
-let g:ale_fixers['reason'] = ['refmt']
-" let g:ale_fixers['ruby'] = ['rubocop']
-" Enabling this is annoying for package.json files
-" let g:ale_fixers['json'] = ['prettier']
-let g:ale_fix_on_save = 1
-let g:ale_virtualenv_dir_names = []
-let g:ale_lint_on_text_changed = 1
-let g:ale_lint_on_enter = 0
-let g:ale_linters_explicit = 1
-let g:ale_linters = {
-\   'javascript': ['eslint']
-\}
-let g:ale_sign_error                  = '✘'
-let g:ale_sign_warning                = '⚠'
-highlight ALEErrorSign ctermbg        =NONE ctermfg=red
-highlight ALEWarningSign ctermbg      =NONE ctermfg=yellow
-" let g:ale_lint_on_text_changed        = 'never'
-" let g:ale_lint_on_enter               = 0
-" let g:ale_lint_on_save                = 1
-
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = '●' " Less aggressive than the default '>>'
-let g:ale_sign_warning = '.'
-let g:ale_set_highlights = 0
-let g:ale_javascript_prettier_use_local_config = 1
+" let g:airline#extensions#coc#enabled = 1
 let g:jsx_ext_required = 0
 
 " Show Error?
 set statusline+=%#warningmsg#
 set statusline+=%*
 " Only show a line when there are more than one window?
-" set laststatus=
+" TextEdit might fail if hidden is not set.
 set hidden
 
-nmap <leader>f :ALEFix<CR>
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
 
 "
 " Polyglot
@@ -286,8 +303,6 @@ let g:javascript_plugin_flow = 1
 
 let g:netrw_liststyle = 3 " Tree View
 let g:netrw_banner = 0
-" let g:netrw_winsize = 25 " 25% of page
-" let g:netrw_browse_split = 4 " Open in previous window
 
 "
 " GitGutter
@@ -295,6 +310,24 @@ let g:netrw_banner = 0
 
 " Unmap GitGutter stuff I don't use
 let g:gitgutter_map_keys = 0
+
+" Fugitive Bitbucket
+let g:fubitive_domain_pattern = 'lstools\.nintendo\.com\bitbucket/projects/repos/'
+
+"
+" Rust
+"
+let g:rustfmt_autosave = 1
+
+
+"
+" Styled Components
+"
+
+" Make styled-components
+" Maybe remove? if slow?
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 "
 " Terminal
@@ -353,6 +386,7 @@ autocmd FileType qf map <buffer> dd :RemoveQFItem<cr>
 autocmd FileType gitcommit call cursor(1, 99)
 
 
+
 """"""""""""""""""""""
 "
 " Mappings
@@ -371,7 +405,7 @@ nnoremap <leader>h :bprevious<CR>
 nnoremap <leader>a :Rg<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>q :q<CR>
-nnoremap <leader>, <C-w><C-v><C-l>:e ~/.nvimrc<CR>
+nnoremap <leader>, <C-w><C-v><C-l>:e ~/.config/nvim/init.vim<CR>
 "New Vertical Split
 nnoremap <Leader>v <C-w>v<C-w>l
 " Move around splits quicker
@@ -382,6 +416,8 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>d :bdelete<CR>
 nnoremap <leader>d! :bdelete!<CR>
 nnoremap <leader>gd :term git diff %<cr>
+" Vertical diff splits
+set diffopt+=vertical
 nnoremap <leader>; :noh<cr>
 " Delete Buffer, but keep split open
 nmap <leader>bq :bp<bar>bd #<CR>
@@ -438,6 +474,7 @@ let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
+
 "
 " Themes
 "
@@ -449,14 +486,14 @@ set termguicolors
 " colorscheme onedark
 
 " One
-" let g:airline_theme='one'
-" let g:one_allow_italics = 1
-" colorscheme one
+let g:airline_theme='one'
+let g:one_allow_italics = 1
+colorscheme one
 
 " Nord
-let g:nord_italic = 1
-let g:nord_underline = 1
-colorscheme nord
+" let g:nord_italic = 1
+" let g:nord_underline = 1
+" colorscheme nord
 
 " OceanicNext
 " let g:oceanic_next_terminal_bold = 1
@@ -468,3 +505,7 @@ colorscheme nord
 " let g:neodark#use_custom_terminal_theme = 1
 " let g:airline_theme='neodark'
 " colorscheme neodark
+
+highlight ColorColumn ctermbg=gray guibg=gray
+" highlight ColorColumn ctermbg=16
+
