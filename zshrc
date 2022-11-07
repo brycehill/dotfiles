@@ -1,6 +1,13 @@
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
+
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+
+
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 ZSH_THEME="purity"
@@ -21,7 +28,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 DISABLE_UPDATE_PROMPT="true"
 UPDATE_ZSH_DAYS=30
 
-plugins=(git colored-man-pages osx)
+plugins=(git colored-man-pages macos)
 
 # Setup BrewFile - Do this on new systems? Disable because slow.
 # if [ -f $(brew --prefix)/etc/brew-wrap ];then
@@ -42,6 +49,9 @@ export PATH="$PATH:/usr/local/mysql/bin:~/Library/Haskell/bin:"
 export PATH="$PATH:~/.local/bin"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH=/opt/homebrew/bin:$PATH
+
+
 
 # export FZF_DEFAULT_COMMAND='rg --files --ignore-vcs --ignore-global'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'

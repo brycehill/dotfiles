@@ -2,8 +2,6 @@ vim.g.mapleader = " "
 
 require("plugins")
 
-require("neoscroll").setup()
-
 --
 --
 -- V I M

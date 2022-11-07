@@ -1,14 +1,16 @@
 # Ohmyzsh
 
 ```sh
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
 # Homebrew
 
 ```sh
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
+
+> Make sure path to brew is correct in .zshrc
 
 # Brewfile
 
@@ -22,17 +24,16 @@ brew bundle install ./Brewfile
 # Link up stuff
 
 ```sh
-ln -Fs dotfiles/zshrc ~/.zshrc
-ln -Fs dotfiles/nvimrc ~/.config/nvim/init.vim
-ln -Fs dotfiles/init.lua ~/.config/nvim/init.lua
-ln -Fs dotfiles/lua/plugins.lua ~/.config/nvim/lua/plugins.lua
-ln -Fs dotfiles/vimrc ~/.vimrc
-ln -Fs dotfiles/tmux.conf ~/.tmux.conf
-ln -Fs dotfiles/gitconfig ~/.gitconfig
-ln -Fs dotfiles/ignore ~/.ignore
+ln -Fs ~/dotfiles/zshrc ~/.zshrc
+ln -Fs ~/dotfiles/init.lua ~/.config/nvim/init.lua
+ln -Fs ~/dotfiles/lua/plugins.lua ~/.config/nvim/lua/plugins.lua
+ln -Fs ~/dotfiles/vimrc ~/.vimrc
+ln -Fs ~/dotfiles/tmux.conf ~/.tmux.conf
+ln -Fs ~/dotfiles/gitconfig ~/.gitconfig
+ln -Fs ~/dotfiles/ignore ~/.ignore
 ln -Fs ~/dotfiles/alacritty.yml ~/.config/alacritty/alacritty.yml
 
-cp dotfiles/aliases.zsh $ZSH_CUSTOM/aliases.zsh
+cp ~/dotfiles/aliases.zsh $ZSH_CUSTOM/aliases.zsh
 source ~/.zshrc
 ```
 
@@ -40,7 +41,7 @@ source ~/.zshrc
 
 ```sh
 curl https://raw.githubusercontent.com/therealklanni/purity/master/purity.zsh --output purity.zsh
-ln -s purity.zsh ~/.oh-my-zsh/themes/purity.zsh-theme
+ln -s ~/dotfiles/purity.zsh ~/.oh-my-zsh/themes/purity.zsh-theme
 ```
 
 # Neovim
@@ -62,6 +63,9 @@ ln -s dotfiles/tmuxline ~/.tmux/tmuxline
 ```
 
 # Node / nvm / npm
+```sh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+```
 
 # Mac Stuff
 
@@ -74,4 +78,6 @@ defaults write com.apple.finder AppleShowAllFiles -bool YES
  New Screenshots folder
 mkdir ~/Documents/Screenshots
 defaults write com.apple.screencapture location ~/Documents/Screenshots
+# Font Smoothing
+defaults -currentHost write -g AppleFontSmoothing -int 0.
 ```
