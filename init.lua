@@ -428,7 +428,7 @@ cmp.setup.filetype("gitcommit", {
 -- Prettier function for formatter
 local prettier = function()
 	return {
-		exe = "prettier",
+		exe = "./node_modules/.bin/prettier",
 		args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)) },
 		stdin = true,
 	}
