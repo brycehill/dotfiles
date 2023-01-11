@@ -289,13 +289,6 @@ require("lspconfig").eslint.setup({})
 -- Telescope
 
 local actions = require("telescope.actions")
-require("telescope").setup({
-	pickers = {
-		buffers = {
-			sort_lastused = true,
-		},
-	},
-})
 
 local telescope = require("telescope")
 telescope.setup({
@@ -320,6 +313,8 @@ telescope.setup({
 		},
 		buffers = {
 			theme = "dropdown",
+			sort_mru = true,
+			ignore_current_buffer = true,
 		},
 		-- grep_string = {
 		-- only_sort_text = true,
@@ -448,7 +443,6 @@ require("formatter").setup({
 		graphql = { prettier },
 		markdown = { prettier },
 		lua = {
-			-- Stylua
 			function()
 				return {
 					exe = "stylua",
