@@ -67,8 +67,8 @@ tabspaces: 8
 # Font configuration 
 font:
   normal:
-    family: Hasklig
-    # style: Light
+    family: Hasklug NFM
+    style: Regular
   size: 14.0
   offset:
     x: 1
@@ -81,7 +81,7 @@ font:
     y: 0
 
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
 
 #
 # Colors
