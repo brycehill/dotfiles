@@ -29,6 +29,13 @@ return require("packer").startup(function()
 
 	use("nvim-treesitter/nvim-treesitter")
 	use("sheerun/vim-polyglot")
+	use {
+		'nvim-tree/nvim-tree.lua',
+		requires = {
+			'nvim-tree/nvim-web-devicons', -- optional, for file icons
+		},
+		tag = 'nightly' -- optional, updated every week. (see issue #1193)
+	}
 
 	-- Formatting
 	use("mhartington/formatter.nvim")
