@@ -28,8 +28,10 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 --
 
 local lspconfig = require("lspconfig")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 lspconfig.tsserver.setup({
+	capabilities = capabilities,
 	diagnostics = {
 		-- "Could not find declaration file for module"
 		ignoredCodes = 7016,
@@ -46,5 +48,9 @@ lspconfig.tsserver.setup({
 	root_dir = function()
 		return vim.loop.cwd()
 	end,
+})
+
+lspconfig.sumneko_lua.setup({
+	capabilities = capabilities,
 })
 lspconfig.eslint.setup({})
