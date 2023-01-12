@@ -1,19 +1,19 @@
 vim.g.mapleader = " "
 
 -- Core
-require('options')
-require('keymaps')
-require('colors')
+require("options")
+require("keymaps")
+require("colors")
 
 require("plugins.packer")
 
 -- My Plugin Settings
-require('plugins.cmp')
-require('plugins.formatter')
-require('plugins.lsp')
-require('plugins.lualine')
-require('plugins.telescope')
-require('plugins.treesitter')
+require("plugins.cmp")
+require("plugins.formatter")
+require("plugins.lsp")
+require("plugins.lualine")
+require("plugins.telescope")
+require("plugins.treesitter")
 
 require("gitsigns").setup()
 require("nvim-autopairs").setup({})
