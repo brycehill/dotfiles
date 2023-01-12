@@ -26,7 +26,7 @@ brew bundle install ./Brewfile
 ```sh
 ln -Fs ~/dotfiles/zshrc ~/.zshrc
 ln -Fs ~/dotfiles/init.lua ~/.config/nvim/init.lua
-ln -Fs ~/dotfiles/lua/plugins.lua ~/.config/nvim/lua/plugins.lua
+ln -Fs ~/dotfiles/lua ~/.config/nvim/lua
 ln -Fs ~/dotfiles/vimrc ~/.vimrc
 ln -Fs ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -Fs ~/dotfiles/gitconfig ~/.gitconfig
