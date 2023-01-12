@@ -40,9 +40,11 @@ return require("packer").startup(function()
 	use("mhartington/formatter.nvim")
 
 	-- LSP
-	use("neovim/nvim-lspconfig")
-	use("anott03/nvim-lspinstall")
-	use("williamboman/nvim-lsp-installer")
+	use({
+		"williamboman/mason.nvim", -- LSP Package Manager
+		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
+	})
 
 	-- Autocomplete
 	use({

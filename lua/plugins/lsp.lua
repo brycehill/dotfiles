@@ -4,33 +4,28 @@
 --
 --
 
-local lsp_installer = require("nvim-lsp-installer")
-
-lsp_installer.setup({
+require("mason").setup()
+require("mason-lspconfig").setup({
+	ensure_installed = { "sumneko_lua" },
 	automatic_installation = true,
 })
 
-local signs = { Error = "● ", Warn = "● ", Hint = "● ", Info = "● " }
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+local on_attach = function(_, bufnr)
+	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
+	-- vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+	--
+	vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+	-- vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {})
+	-- vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, {})
+	vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 end
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-	border = "rounded",
-})
-
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-	border = "rounded",
-})
-
---
--- L A N G U A G E  S E R V E R S
---
 
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+-- Typescript
 lspconfig.tsserver.setup({
+	on_attach = on_attach,
 	capabilities = capabilities,
 	diagnostics = {
 		-- "Could not find declaration file for module"
@@ -50,7 +45,11 @@ lspconfig.tsserver.setup({
 	end,
 })
 
+-- Lua
 lspconfig.sumneko_lua.setup({
+	on_attach = on_attach,
 	capabilities = capabilities,
 })
+
+-- ESLint
 lspconfig.eslint.setup({})
