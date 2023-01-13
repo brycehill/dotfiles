@@ -1,11 +1,44 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
 	window = {
 		documentation = cmp.config.window.bordered(),
+		max_height = 10,
+	},
+	formatting = {
+		fields = { "menu", "abbr", "kind" },
+		format = function(entry, item)
+			local ELLIPSIS_CHAR = "…"
+			local MAX_LABEL_WIDTH = 20
+			local MIN_LABEL_WIDTH = 20
+
+			local menu_icon = {
+				nvim_lsp = "λ",
+				luasnip = "⋗",
+				buffer = "Ω",
+				path = "🖫",
+			}
+
+			local label = item.abbr
+			local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
+			item.menu = menu_icon[entry.source.name]
+
+			-- Keep the menu at a fixed width to prevent a jarring resize
+			if truncated_label ~= label then
+				item.abbr = truncated_label .. ELLIPSIS_CHAR
+			elseif string.len(label) < MIN_LABEL_WIDTH then
+				local padding = string.rep(" ", MIN_LABEL_WIDTH - string.len(label))
+				item.abbr = label .. padding
+			end
+
+			return item
+		end,
 	},
 	snippet = {
 		expand = function(args)
@@ -38,19 +71,41 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 	}),
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
+		{
+			name = "path",
+			max_item_count = 4,
+		},
+		{
+			name = "nvim_lsp",
+			keyword_length = 3,
+			max_item_count = 4,
+		},
+		{
+			name = "buffer",
+			keyword_length = 3,
+			max_item_count = 4,
+		},
+		{
+			name = "luasnip",
+			keyword_length = 2,
+			max_item_count = 4,
+		},
 	}, {
-		{ name = "buffer" },
+		{
+			name = "buffer",
+			max_item_count = 4,
+		},
 	}),
 })
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
 	sources = cmp.config.sources({
-		-- You can specify the `cmp_git` source if you were installed it.
 		{ name = "cmp_git" },
 	}, {
 		{ name = "buffer" },
 	}),
 })
+
+-- Add parentheses after selecting function or method item
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())

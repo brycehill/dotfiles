@@ -1,4 +1,8 @@
+--
+--
 -- Treesitter
+--
+--
 
 require("nvim-treesitter.configs").setup({
 	context_commentstring = {
@@ -6,16 +10,17 @@ require("nvim-treesitter.configs").setup({
 	},
 	ensure_installed = {
 		"bash",
-		"javascript",
-		"json",
 		"css",
+		"javascript",
+		"jsdoc",
+		"json",
+		"gitignore",
+		"graphql",
+		"html",
 		"lua",
 		"markdown",
 		"rust",
 		"typescript",
-		"jsdoc",
-		"html",
-		"graphql",
 	},
 	highlight = {
 		enable = true,
@@ -24,7 +29,7 @@ require("nvim-treesitter.configs").setup({
 	autotag = { enable = true },
 	indent = {
 		-- Enable once better supported
-		enable = false,
+		enable = true,
 	},
 })
 vim.opt.foldexpr = "nvim_treesitter#foldexpr"

@@ -28,6 +28,7 @@ return require("packer").startup(function()
 
 	use("nvim-treesitter/nvim-treesitter")
 	use("sheerun/vim-polyglot")
+
 	use({
 		"nvim-tree/nvim-tree.lua",
 		requires = {
@@ -35,6 +36,8 @@ return require("packer").startup(function()
 		},
 		tag = "nightly", -- optional, updated every week. (see issue #1193)
 	})
+
+	use("kyazdani42/nvim-web-devicons")
 
 	-- Formatting
 	use("mhartington/formatter.nvim")
@@ -84,13 +87,13 @@ return require("packer").startup(function()
 	})
 
 	use("BurntSushi/ripgrep")
-	use("kyazdani42/nvim-web-devicons")
 
 	-- git
 	use("tpope/vim-fugitive")
 	use("lewis6991/gitsigns.nvim")
 
 	use("windwp/nvim-autopairs")
+	use("windwp/nvim-ts-autotag")
 	use("tpope/vim-surround")
 
 	-- Colors

@@ -6,7 +6,12 @@
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "sumneko_lua" },
+	ensure_installed = {
+		"graphql",
+		"html",
+		"sumneko_lua",
+		"tsserver",
+	},
 	automatic_installation = true,
 })
 
@@ -49,6 +54,19 @@ lspconfig.tsserver.setup({
 lspconfig.sumneko_lua.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim", "use" },
+			},
+		},
+	},
+})
+
+-- CSS
+lspconfig.cssls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- ESLint
