@@ -1,28 +1,27 @@
+-- Install Lazy Plugin Manager if not already installed
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		--"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+
 vim.g.mapleader = " "
 
+require("lazy").setup({ { import = "plugins" }, { import = "plugins.lsp" } })
+
 -- Core
-require("options")
-require("keymaps")
-require("colors")
+require("core.options")
+require("core.keymaps")
+require("core.colors")
 
-require("plugins.packer")
-
--- My Plugin Settings
-require("plugins.autopairs")
-require("plugins.cmp")
-require("plugins.formatter")
-require("plugins.glow")
-require("plugins.lsp")
-require("plugins.lualine")
-require("plugins.nvim-tree")
-require("plugins.telescope")
-require("plugins.treesitter")
-
-require("gitsigns").setup()
-require("nvim_comment").setup({})
-
--- where do these go?
--- vim.cmd([[highlight ColorColumn ctermbg=gray guibg=gray]])
 vim.cmd([[highlight ExtraWhitespace guibg=#D18EC2]])
 
 -- Save on Focus out
