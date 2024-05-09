@@ -1,3 +1,5 @@
+local util = require("formatter.util")
+
 --
 --
 -- Formatter
@@ -10,17 +12,30 @@ local prettier = function()
 		exe = "./node_modules/.bin/prettier",
 		args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)) },
 		stdin = true,
+		try_node_modules = true,
 	}
 end
+
+-- local prettier = require("formatter.filetypes.javascript").prettier
 
 require("formatter").setup({
 	--logging = false,
 	filetype = {
-		typescriptreact = { prettier },
-		javascriptreact = { prettier },
-		javascript = { prettier },
-		typescript = { prettier },
-		json = { prettier },
+		typescriptreact = {
+			prettier,
+		},
+		javascriptreact = {
+			prettier,
+		},
+		javascript = {
+			prettier,
+		},
+		typescript = {
+			prettier,
+		},
+		json = {
+			prettier,
+		},
 		html = { prettier },
 		css = { prettier },
 		scss = { prettier },
@@ -48,5 +63,3 @@ vim.api.nvim_exec(
 	]],
 	true
 )
-
-

@@ -3,13 +3,17 @@
 -- LSP
 --
 --
+--
+--
 
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {
+		"cssls",
+		"tailwindcss",
 		"graphql",
 		"html",
-		"sumneko_lua",
+		"lua_ls",
 		"tsserver",
 	},
 	automatic_installation = true,
@@ -51,7 +55,7 @@ lspconfig.tsserver.setup({
 })
 
 -- Lua
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 	settings = {
@@ -71,3 +75,17 @@ lspconfig.cssls.setup({
 
 -- ESLint
 lspconfig.eslint.setup({})
+
+-- Stylelint
+lspconfig.stylelint_lsp.setup({
+	filetypes = { "css", "javascript" },
+	root_dir = lspconfig.util.root_pattern("package.json", ".git"),
+	settings = {
+		stylelintplus = {
+			autoFixOnFormat = true,
+			autoFixOnSave = true,
+			validateOnSave = true,
+			validateOnType = false,
+		},
+	},
+})

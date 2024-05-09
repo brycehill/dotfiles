@@ -42,7 +42,10 @@ keymap("n", "<leader>c", ":CommentToggle<CR>", { noremap = true, silent = true }
 keymap("v", "<leader>c", ":'<,'>CommentToggle<CR>", { noremap = true, silent = true })
 
 -- nvim-tree
-keymap("n", "<leader>e", ":NvimTreeToggle<cr>", { noremap = true, silent = true })
+keymap("n", "<leader>ee", ":NvimTreeToggle<cr>", { noremap = true, silent = true })
+keymap("n", "<leader>ef", ":NvimTreeFindFileToggle<cr>", { noremap = true, silent = true })
+keymap("n", "<leader>ec", ":NvimTreeCollapse<cr>", { noremap = true, silent = true })
+keymap("n", "<leader>ec", ":NvimTreeRefresh<cr>", { noremap = true, silent = true })
 
 --
 -- Insert Mode

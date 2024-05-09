@@ -9,6 +9,7 @@ local telescope = require("telescope")
 
 telescope.setup({
 	defaults = {
+		-- path_display = { "smart" },
 		mappings = {
 			i = {
 				["<C-k>"] = "move_selection_previous",
@@ -45,5 +46,6 @@ vim.api.nvim_set_keymap("n", "<leader>p", ":Telescope find_files hidden=true<cr>
 vim.api.nvim_set_keymap("n", "<leader>a", ":Telescope live_grep<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>o", ":Telescope buffers<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>t", ":Telescope help_tags<cr>", { noremap = true })
+
 vim.api.nvim_set_keymap("n", "gst<cr>", ":Telescope git_status<cr>", { noremap = true })
 vim.api.nvim_set_keymap("n", "gstl<cr>", ":Telescope git_stash<cr>", { noremap = true })

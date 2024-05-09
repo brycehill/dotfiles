@@ -19,19 +19,34 @@ require("nvim-treesitter.configs").setup({
 		"html",
 		"lua",
 		"markdown",
-		"rust",
+		-- "rust",
+		"styled",
+		"tsx",
 		"typescript",
+		"vim",
+		"vimdoc",
 	},
 	highlight = {
 		enable = true,
-		disable = { "html" }, -- FIX: disabled for now https://github.com/nvim-treesitter/nvim-treesitter/issues/1788
+		-- disable = { "html" }, -- FIX: disabled for now https://github.com/nvim-treesitter/nvim-treesitter/issues/1788
 	},
-	autotag = { enable = true },
-	indent = {
-		-- Enable once better supported
+	autotag = {
 		enable = true,
 	},
+	indent = {
+		enable = true,
+	},
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "<C-space>",
+			node_incremental = "<C-space>",
+			scope_incremental = false,
+			node_decremental = "<bs>",
+		},
+	},
 })
+
 vim.opt.foldexpr = "nvim_treesitter#foldexpr"
 
 -- FIX: for nvim-autotag - not actually working

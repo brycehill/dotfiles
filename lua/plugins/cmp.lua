@@ -1,6 +1,7 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+local lspkind = require("lspkind")
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
@@ -13,32 +14,36 @@ cmp.setup({
 	},
 	formatting = {
 		fields = { "menu", "abbr", "kind" },
-		format = function(entry, item)
-			local ELLIPSIS_CHAR = "…"
-			local MAX_LABEL_WIDTH = 20
-			local MIN_LABEL_WIDTH = 20
-
-			local menu_icon = {
-				nvim_lsp = "λ",
-				luasnip = "⋗",
-				buffer = "Ω",
-				path = "🖫",
-			}
-
-			local label = item.abbr
-			local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
-			item.menu = menu_icon[entry.source.name]
-
-			-- Keep the menu at a fixed width to prevent a jarring resize
-			if truncated_label ~= label then
-				item.abbr = truncated_label .. ELLIPSIS_CHAR
-			elseif string.len(label) < MIN_LABEL_WIDTH then
-				local padding = string.rep(" ", MIN_LABEL_WIDTH - string.len(label))
-				item.abbr = label .. padding
-			end
-
-			return item
-		end,
+		format = lspkind.cmp_format({
+			maxwidth = 50,
+			ellipsis_char = "...",
+		}),
+		-- format = function(entry, item)
+		-- 	local ELLIPSIS_CHAR = "…"
+		-- 	local MAX_LABEL_WIDTH = 20
+		-- 	local MIN_LABEL_WIDTH = 20
+		--
+		-- 	local menu_icon = {
+		-- 		nvim_lsp = "λ",
+		-- 		luasnip = "⋗",
+		-- 		buffer = "Ω",
+		-- 		path = "🖫",
+		-- 	}
+		--
+		-- 	local label = item.abbr
+		-- 	local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
+		-- 	item.menu = menu_icon[entry.source.name]
+		--
+		-- 	-- Keep the menu at a fixed width to prevent a jarring resize
+		-- 	if truncated_label ~= label then
+		-- 		item.abbr = truncated_label .. ELLIPSIS_CHAR
+		-- 	elseif string.len(label) < MIN_LABEL_WIDTH then
+		-- 		local padding = string.rep(" ", MIN_LABEL_WIDTH - string.len(label))
+		-- 		item.abbr = label .. padding
+		-- 	end
+		--
+		-- 	return item
+		-- end,
 	},
 	snippet = {
 		expand = function(args)
@@ -72,22 +77,22 @@ cmp.setup({
 	}),
 	sources = cmp.config.sources({
 		{
-			name = "path",
-			max_item_count = 4,
-		},
-		{
-			name = "nvim_lsp",
-			keyword_length = 3,
+			name = "luasnip",
+			keyword_length = 2,
 			max_item_count = 4,
 		},
 		{
 			name = "buffer",
-			keyword_length = 3,
-			max_item_count = 4,
+			keyword_length = 2,
+			max_item_count = 5,
 		},
 		{
-			name = "luasnip",
-			keyword_length = 2,
+			name = "path",
+			max_item_count = 5,
+		},
+		{
+			name = "nvim_lsp",
+			keyword_length = 3,
 			max_item_count = 4,
 		},
 	}, {

@@ -19,9 +19,8 @@ nvimtree.setup({
 			},
 		},
 	},
-	-- disable window_picker for
-	-- explorer to work well with
-	-- window splits
+
+	-- disable window_picker for explorer to work well with window splits
 	actions = {
 		open_file = {
 			window_picker = {
@@ -29,7 +28,12 @@ nvimtree.setup({
 			},
 		},
 	},
-	-- 	git = {
-	-- 		ignore = false,
-	-- 	},
+
+	filters = {
+		custom = { ".DS_STORE" },
+	},
+
+	git = {
+		ignore = false,
+	},
 })

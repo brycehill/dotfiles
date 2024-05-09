@@ -61,6 +61,7 @@ return require("packer").startup(function()
 			"L3MON4D3/LuaSnip", -- snippets completions
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets", -- Built-in Snippets
+			"onsails/lspkind.nvim",
 		},
 	})
 
@@ -74,16 +75,26 @@ return require("packer").startup(function()
 	use({ "kevinhwang91/nvim-bqf" })
 
 	-- Comments
-	use("terrortylor/nvim-comment")
+	-- use("terrortylor/nvim-comment")
+	use("JoosepAlviste/nvim-ts-context-commentstring")
+	use("numToStr/Comment.nvim")
 
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 
+	use({ "stevearc/dressing.nvim" })
+
 	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
 		run = "make",
+	})
+
+	use({
+		"ibhagwan/fzf-lua",
+		-- optional for icon support
+		requires = { "nvim-tree/nvim-web-devicons" },
 	})
 
 	use("BurntSushi/ripgrep")
@@ -107,6 +118,14 @@ return require("packer").startup(function()
 	use("RRethy/nvim-base16")
 	use("marko-cerovac/material.nvim")
 
+	-- Markdown preview
+	use({
+		"ellisonleao/glow.nvim",
+		config = function()
+			require("glow").setup()
+		end,
+	})
+
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
@@ -115,9 +134,9 @@ return require("packer").startup(function()
 	use("norcalli/nvim-colorizer.lua")
 
 	-- tmux
-	use("christoomey/vim-tmux-navigator")
+	-- use("christoomey/vim-tmux-navigator")
 	-- Make focus events work in tmux
-	use("tmux-plugins/vim-tmux-focus-events")
+	-- use("tmux-plugins/vim-tmux-focus-events")
 
 	if packer_bootstrap then
 		require("packer").sync()
