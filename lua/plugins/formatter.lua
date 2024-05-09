@@ -1,70 +1,26 @@
 return {
-	"mhartington/formatter.nvim",
+	"stevearc/conform.nvim",
+	event = { "BufReadPre", "BufNewFile" },
 	config = function()
-		local util = require("formatter.util")
+		local conform = require("conform")
 
-		--
-		--
-		-- Formatter
-		--
-		--
-
-		-- Prettier function for formatter
-		local prettier = function()
-			return {
-				exe = "./node_modules/.bin/prettier",
-				args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)) },
-				stdin = true,
-				try_node_modules = true,
-			}
-		end
-
-		-- local prettier = require("formatter.filetypes.javascript").prettier
-
-		require("formatter").setup({
-			--logging = false,
-			filetype = {
-				typescriptreact = {
-					prettier,
-				},
-				javascriptreact = {
-					prettier,
-				},
-				javascript = {
-					prettier,
-				},
-				typescript = {
-					prettier,
-				},
-				json = {
-					prettier,
-				},
-				html = { prettier },
-				css = { prettier },
-				scss = { prettier },
-				graphql = { prettier },
-				markdown = { prettier },
-				lua = {
-					function()
-						return {
-							exe = "stylua",
-							args = {},
-							stdin = false,
-						}
-					end,
-				},
+		conform.setup({
+			formatters_by_ft = {
+				javascript = { "prettier" },
+				typescript = { "prettier" },
+				javascriptreact = { "prettier" },
+				typescriptreact = { "prettier" },
+				svelte = { "prettier" },
+				css = { "prettier" },
+				html = { "prettier" },
+				json = { "prettier" },
+				yaml = { "prettier" },
+				markdown = { "prettier" },
+				graphql = { "prettier" },
+				liquid = { "prettier" },
+				lua = { "stylua" },
+				python = { "isort", "black" },
 			},
 		})
-
-		-- Runs Formatter on save
-		vim.api.nvim_exec(
-			[[ 
-		augroup FormatAutogroup 
-			autocmd! 
-			autocmd BufWritePost * FormatWrite 
-		augroup END 
-	]],
-			true
-		)
 	end,
 }
