@@ -5,12 +5,6 @@ return {
 	"kevinhwang91/nvim-bqf",
 	"BurntSushi/ripgrep",
 
-	-- git
-	"tpope/vim-fugitive",
-	"lewis6991/gitsigns.nvim",
-	"windwp/nvim-ts-autotag",
-	"tpope/vim-surround",
-
 	-- Colors
 	"tjdevries/colorbuddy.nvim",
 	"EdenEast/nightfox.nvim",
