@@ -5,8 +5,15 @@ return {
 		local conform = require("conform")
 
 		conform.setup({
+			formatters = {
+				prettier = {
+					require_cwd = true,
+				},
+			},
+
 			formatters_by_ft = {
 				javascript = { "prettier" },
+				jsx = { "prettier" },
 				typescript = { "prettier" },
 				javascriptreact = { "prettier" },
 				typescriptreact = { "prettier" },

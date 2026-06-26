@@ -14,7 +14,6 @@ return {
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
-		local lspconfig = require("lspconfig")
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		local on_attach = function(_, bufnr)
@@ -28,7 +27,7 @@ return {
 		end
 
 		-- Typescript
-		lspconfig.tsserver.setup({
+		vim.lsp.config.ts_ls = {
 			on_attach = on_attach,
 			capabilities = capabilities,
 			diagnostics = {
@@ -47,10 +46,10 @@ return {
 			root_dir = function()
 				return vim.loop.cwd()
 			end,
-		})
+		}
 
 		-- Lua
-		lspconfig.lua_ls.setup({
+		vim.lsp.config.lua_ls = {
 			on_attach = on_attach,
 			capabilities = capabilities,
 			settings = {
@@ -60,19 +59,20 @@ return {
 					},
 				},
 			},
-		})
+		}
 
 		-- CSS
-		lspconfig.cssls.setup({
+		vim.lsp.config.cssls = {
 			capabilities = capabilities,
 			on_attach = on_attach,
-		})
+		}
 
 		-- ESLint
-		lspconfig.eslint.setup({})
+		vim.lsp.config.eslint = {}
 
+		local lspconfig = require("lspconfig")
 		-- Stylelint
-		lspconfig.stylelint_lsp.setup({
+		vim.lsp.config.stylelint_lsp = {
 			filetypes = { "css", "javascript" },
 			root_dir = lspconfig.util.root_pattern("package.json", ".git"),
 			settings = {
@@ -83,6 +83,6 @@ return {
 					validateOnType = false,
 				},
 			},
-		})
+		}
 	end,
 }

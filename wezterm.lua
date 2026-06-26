@@ -11,27 +11,26 @@ config.term = "wezterm"
 -- Colors
 --config.color_scheme = "Subliminal"
 --config.color_scheme = "Nord (Gogh)"
---config.color_scheme = "Oceanic Next (Gogh)"
+config.color_scheme = "Oceanic Next (Gogh)"
 --config.color_scheme = "OceanicNext (base16)"
-config.color_scheme = "Oceanic-Next"
+--config.color_scheme = "Oceanic-Next"
 config.window_background_opacity = 0.95
 config.macos_window_background_blur = 20
 
-config.font = wezterm.font("Hasklug NFM")
+config.font = wezterm.font_with_fallback({ "Hasklug NF" })
 config.font_size = 14
 
 -- Bell
 config.audible_bell = "Disabled"
 
 -- UI
-config.tab_max_width = 80
 config.hide_tab_bar_if_only_one_tab = true
 
-config.window_decorations = "RESIZE"
--- Remove Tab Bar. Use LEADER+s to navigate
--- config.show_tabs_in_tab_bar = false
--- config.use_fancy_tab_bar = false
--- config.show_new_tab_button_in_tab_bar = false
+config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+config.integrated_title_buttons = { "Maximize" }
+config.use_fancy_tab_bar = true
+config.tab_max_width = 32
+config.show_new_tab_button_in_tab_bar = false
 
 -- This function returns the suggested title for a tab.
 function tab_title(tab_info)
@@ -49,6 +48,7 @@ end
 local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
 -- The filled in variant of the > symbol
 local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
+
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local edge_background = "#0b0022"
 	local background = "#1b1032"
@@ -83,17 +83,22 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	}
 end)
 
--- config.window_padding = {
--- 	left = 5,
--- 	right = 5,
--- 	top = 5,
--- 	bottom = 5,
--- }
+config.pane_focus_follows_mouse = true
+config.scrollback_lines = 5000
+config.line_height = 1.1
+
+config.window_padding = {
+	left = 0,
+	right = 0,
+	top = 0,
+	bottom = 0,
+}
 
 -- config.use_ime = false
 
 config.debug_key_events = true
 
+-- CTRL + SPACE = LEADER
 config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 1001 }
 config.keys = {
 	-- This will create a new split and run the `top` program inside it
@@ -181,8 +186,14 @@ config.keys = {
 	{ key = "S", mods = "LEADER", action = wezterm.action({ EmitEvent = "save_session" }) },
 	{ key = "L", mods = "LEADER", action = wezterm.action({ EmitEvent = "load_session" }) },
 	{ key = "R", mods = "LEADER", action = wezterm.action({ EmitEvent = "restore_session" }) },
+
+	{ key = "[", mods = "LEADER", action = wezterm.action.ActivateCopyMode },
+	{ key = "w", mods = "LEADER", action = act.ShowTabNavigator },
 }
 
+-- For navigating between nvim and wezterm panes
+-- Commented out because I can't figure out how to use the same keys for
+-- navigating between neovim panes and wezterm panes.
 -- local move_around = function(window, pane, direction_wez, direction_nvim)
 -- 	wezterm.log_info(pane:get_title())
 --
@@ -227,6 +238,43 @@ wezterm.on("load_session", function(window)
 end)
 wezterm.on("restore_session", function(window)
 	session_manager.restore_state(window)
+end)
+
+local create_workspace = function(args)
+	local tab, pane, window = wezterm.mux.spawn_window(args)
+	pane:split({ size = 0.5 })
+	window:spawn_tab({})
+
+	window:gui_window():maximize()
+end
+
+-- Setup default workspaces on startup
+wezterm.on("gui-startup", function(_)
+	local tab, pane, window = wezterm.mux.spawn_window({
+		workspace = "Nintendo: NCom Root",
+		cwd = "/Users/brycehill/projects/nintendo/ncom-root/",
+	})
+	pane:split({ size = 0.5 })
+	tab:set_title("nvim ")
+	local tab = window:spawn_tab({})
+	tab:set_title("server ")
+
+	window:gui_window():maximize()
+
+	-- local tab, pane, window = wezterm.mux.spawn_window({
+	-- 	workspace = "Nintendo: YIR24",
+	-- 	cwd = "/Users/brycehill/projects/nintendo/microsite-yir24/",
+	-- })
+	-- tab:set_title("nvim ")
+	-- local tab = window:spawn_tab({})
+	-- tab:set_title("server ")
+	-- pane:split({ size = 0.5 })
+
+	local tab, pane, window = wezterm.mux.spawn_window({
+		workspace = "Nintendo: Graph",
+		cwd = "/Users/brycehill/projects/nintendo/graph/",
+	})
+	pane:split({ size = 0.5 })
 end)
 
 return config

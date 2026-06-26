@@ -11,6 +11,7 @@ vim.cmd([[colorscheme material]])
 vim.g.material_style = "oceanic"
 
 -- require('nightfox')
+--
 
 --require('OceanicNext').setup()
 --require('edge').setup()

@@ -81,7 +81,7 @@
   commitBeforeMerge = false
 [rebase]
 	autosquash = true
-
+[pull]
 [user]
-	name = Bryce Hill
-	email = bryceahill@gmail.com
+ 	name = Bryce Hill
+ 	email = bryceahill@gmail.com
