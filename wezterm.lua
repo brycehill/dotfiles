@@ -17,7 +17,7 @@ config.color_scheme = "Oceanic Next (Gogh)"
 config.window_background_opacity = 0.95
 config.macos_window_background_blur = 20
 
-config.font = wezterm.font_with_fallback({ "Hasklug NF" })
+config.font = wezterm.font_with_fallback({ "Hasklug Nerd Font" })
 config.font_size = 14
 
 -- Bell
@@ -252,7 +252,7 @@ end
 wezterm.on("gui-startup", function(_)
 	local tab, pane, window = wezterm.mux.spawn_window({
 		workspace = "Nintendo: NCom Root",
-		cwd = "/Users/brycehill/projects/nintendo/ncom-root/",
+		cwd = "/Users/brychi01/projects/nintendo/ncom-root/",
 	})
 	pane:split({ size = 0.5 })
 	tab:set_title("nvim ")
@@ -263,7 +263,7 @@ wezterm.on("gui-startup", function(_)
 
 	-- local tab, pane, window = wezterm.mux.spawn_window({
 	-- 	workspace = "Nintendo: YIR24",
-	-- 	cwd = "/Users/brycehill/projects/nintendo/microsite-yir24/",
+	-- 	cwd = "/Users/brychi01/projects/nintendo/microsite-yir24/",
 	-- })
 	-- tab:set_title("nvim ")
 	-- local tab = window:spawn_tab({})
@@ -272,7 +272,7 @@ wezterm.on("gui-startup", function(_)
 
 	local tab, pane, window = wezterm.mux.spawn_window({
 		workspace = "Nintendo: Graph",
-		cwd = "/Users/brycehill/projects/nintendo/graph/",
+		cwd = "/Users/brychi01/projects/nintendo/graph/",
 	})
 	pane:split({ size = 0.5 })
 end)

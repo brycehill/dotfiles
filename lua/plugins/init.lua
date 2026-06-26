@@ -14,7 +14,7 @@ return {
 	"Th3Whit3Wolf/onebuddy",
 	"RRethy/nvim-base16",
 	"marko-cerovac/material.nvim",
-	"norcalli/nvim-colorizer.lua",
+	"catgoose/nvim-colorizer.lua",
 
 	-- lua
 	"ckipp01/stylua-nvim",

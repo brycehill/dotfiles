@@ -32,7 +32,7 @@ else
 	vim.cmd([[highlight ExtraWhitespace guibg=#D18EC2]])
 
 	-- Save on Focus out
-	vim.cmd([[au FocusLost * :wa]])
+	vim.cmd([[au FocusLost * silent! update]])
 
 	vim.diagnostic.config({
 		virtual_text = false,
