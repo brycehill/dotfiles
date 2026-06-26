@@ -18,7 +18,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 # clone this directory and then install brewfile
 git clone git@github.com:brycehill/dotfiles.git
 cd dotfiles
-brew bundle install ./Brewfile
+brew bundle install --file ./Brewfile
 ```
 
 # Link up stuff
