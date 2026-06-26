@@ -25,13 +25,13 @@ brew bundle install --file ./Brewfile
 
 ```sh
 ln -Fs ~/dotfiles/zshrc ~/.zshrc
+ln -Fs ~/dotfiles/wezterm.lua ~/.wezterm.lua
 ln -Fs ~/dotfiles/init.lua ~/.config/nvim/init.lua
 ln -Fs ~/dotfiles/lua ~/.config/nvim/lua
 ln -Fs ~/dotfiles/vimrc ~/.vimrc
 ln -Fs ~/dotfiles/tmux.conf ~/.tmux.conf
 ln -Fs ~/dotfiles/gitconfig ~/.gitconfig
 ln -Fs ~/dotfiles/ignore ~/.ignore
-ln -Fs ~/dotfiles/alacritty.yml ~/.config/alacritty/alacritty.yml
 
 cp ~/dotfiles/aliases.zsh $ZSH_CUSTOM/aliases.zsh
 source ~/.zshrc
@@ -54,13 +54,17 @@ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
-# tmux
-
+# WezTerm
 ```sh
-# Install tpm for tmux plugins
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-ln -s dotfiles/tmuxline ~/.tmux/tmuxline
-```
+# Should be installed with Brew but also need the session manager
+git clone https://github.com/danielcopper/wezterm-session-manager.git ~/.config/wezterm/wezterm-session-manager
+
+# Download term definitions for WezTerm
+tempfile=$(mktemp) \
+  && curl -o $tempfile https://raw.githubusercontent.com/wezterm/wezterm/main/termwiz/data/wezterm.terminfo \
+  && tic -x -o ~/.terminfo $tempfile \
+  && rm $tempfile
+ ```
 
 # Node / nvm / npm
 ```sh
@@ -75,7 +79,7 @@ defaults write com.apple.dock autohide-time-modifier -float 0;killall Dock
 defaults write com.apple.dock autohide-delay -float 0; killall Dock
 defaults write com.apple.dock workspaces-swoosh-animation-off -bool YES
 defaults write com.apple.finder AppleShowAllFiles -bool YES
- New Screenshots folder
+# New Screenshots folder
 mkdir ~/Documents/Screenshots
 defaults write com.apple.screencapture location ~/Documents/Screenshots
 # Font Smoothing
